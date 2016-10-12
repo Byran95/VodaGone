@@ -1,11 +1,11 @@
 package DomainApplication.Dienst;
 
-import DomainApplication.iDienst;
+import DomainApplication.IDienst;
 
 /**
  * Created by Anders Egberts on 12/10/2016.
  */
-public class Dienst implements iDienst {
+public class Dienst implements IDienst {
 
     private String bedrijf;
     private String naam;
