@@ -26,6 +26,11 @@ public class AbonneeClientTest {
     }
 
     @Test
+    public void testGet() throws Exception {
+        assertNotNull(abonneeList);
+    }
+
+    @Test
     public void testVoornaamEersteAbonnee() throws Exception {
         String expectedVoornaam = "Sjaak";
         String actualVoornaam = abonneeList.get(0).getNaam();
