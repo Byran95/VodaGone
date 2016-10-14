@@ -1,4 +1,4 @@
-package main.java.DomainApplication.Dienst;
+package main.java.DomainApplication;
 
 import main.java.DomainApplication.IDienst;
 
