@@ -1,7 +1,6 @@
-package DomainApplication.Abonnement;
+package main.java.DomainApplication.Abonnement;
 
-import DomainApplication.*;
-
+import main.java.DomainApplication.*;
 import java.sql.Date;
 import java.util.ArrayList;
 

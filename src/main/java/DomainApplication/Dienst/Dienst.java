@@ -1,6 +1,6 @@
-package DomainApplication.Dienst;
+package main.java.DomainApplication.Dienst;
 
-import DomainApplication.IDienst;
+import main.java.DomainApplication.IDienst;
 
 /**
  * Created by Anders Egberts on 12/10/2016.
