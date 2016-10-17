@@ -1,4 +1,4 @@
-package main.java.DomainApplication.Abonnement;
+package main.java.DomainApplication;
 
 import main.java.DomainApplication.*;
 import java.sql.Date;

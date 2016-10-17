@@ -1,4 +1,4 @@
-package main.java.DomainApplication.Abonnee;
+package main.java.DomainApplication;
 
 import main.java.DomainApplication.IAbonnee;
 
