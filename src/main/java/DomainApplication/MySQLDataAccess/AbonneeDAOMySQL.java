@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Michel Koolwaaij on 07-10-16.
+ * Created by Bryan van Elden on 14-10-16.
  */
 public class AbonneeDAOMySQL {
     private String URL = "jdbc:mysql://localhost/vodagone";
