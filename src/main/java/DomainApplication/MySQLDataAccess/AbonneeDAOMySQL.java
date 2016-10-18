@@ -1,84 +1,55 @@
 package DomainApplication.MySQLDataAccess;
 
-
-import DomainApplication.Abonnee;
-import DomainApplication.IAbonnee;
-import DomainApplication.IAbonneeAccess;
+import DomainApplication.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Created by Bryan van Elden on 14-10-16.
  */
-public class AbonneeDAOMySQL implements IAbonneeAccess {
-    private String URL = "jdbc:mysql://localhost/vodagone";
-    private String USER = "root";
-    private String PASS = "";
-    private Connection connection;
-    private PreparedStatement ps;
-    Logger logger = Logger.getLogger("logger");
+public class AbonneeDAOMySQL extends MySQLDataAccessObject implements IAbonneeAccess {
 
-    public AbonneeDAOMySQL(){
+    @Override
+    public List<IAbonnee> getAllAbonnees() {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+
+        ResultSet resultSet = null;
+
         try {
-            connection = DriverManager.getConnection(URL,USER,PASS);
+            resultSet = helper.executeQuery("SELECT * FROM abonnee");
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+
+        helper.close();
+        List<IAbonnee> convertedList = convertResultSet( resultSet );
+
+        try {
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (connection==null) {
-            logger.log(Level.WARNING,"Biebel");
-        }
+
+        return convertedList;
     }
 
-    public void prepareStatement(){
+    private List<IAbonnee> convertResultSet( ResultSet resultSet ) {
+        List<IAbonnee> results = new ArrayList<>();
+
         try {
-            ps = connection.prepareStatement("SELECT * FROM abonnee WHERE abonneeId=?");
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public String getNaam(int id) throws SQLException {
-        return getResults(id).getString("naam");
-
-    }
-
-    @Override
-    public String getAchternaam(int id) throws SQLException {
-        return getResults(id).getString("achternaam");
-
-    }
-
-    @Override
-    public String getEmailadres(int id) throws SQLException {
-        return getResults(id).getString("emailadres");
-
-    }
-
-    private ResultSet getResults(int id){
-        ResultSet rs = null;
-        try {
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            rs.first();
-        } catch (SQLException e){
-            System.out.println("Fout hierzo");
-            e.printStackTrace();
-
-        }
-        return rs;
-    }
-
-    @Override
-    public IAbonnee findAbonnee(int id){
-        prepareStatement();
-        try {
-            IAbonnee abonnee = new Abonnee(getNaam(id),getAchternaam(id),getEmailadres(id),id);
-            return abonnee;
+            while (resultSet.next()) {
+                IAbonnee abonnee = new Abonnee(
+                        resultSet.getString("naam"),
+                        resultSet.getString("achternaam"),
+                        resultSet.getString("emailadres"),
+                        resultSet.getInt("abonneeId")
+                );
+                results.add(abonnee);
+            }
+            return results;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,72 +58,39 @@ public class AbonneeDAOMySQL implements IAbonneeAccess {
 
     @Override
     public IAbonnee findAbonneeMetEmail(String email) {
-        PreparedStatement statement;
-        int abonneeId = 0;
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+        IAbonnee abonnee;
 
         try {
-            statement = connection.prepareStatement("SELECT * FROM abonnee WHERE emailadres = ?");
-            statement.setString(1, email);
-            ResultSet rs = statement.executeQuery();
-            abonneeId = rs.findColumn("abonneeId");
+            ps = helper.getConnection().prepareStatement("SELECT * FROM abonnee WHERE emailadres = ?");
+            ps.setString(1, email);
+            abonnee = convertResultSet(helper.executeQuery(ps)).get(0);
+            return abonnee;
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-
-        try {
-            prepareStatement();
-            return new Abonnee(getNaam(abonneeId), getAchternaam(abonneeId), getEmailadres(abonneeId), abonneeId);
-        } catch (SQLException e) {
-
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
     @Override
     public void createAbonnee(String naam, String achternaam, String emailadres){
-        PreparedStatement statement;
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
 
         try {
-            statement = connection.prepareStatement("INSERT INTO abonnee (emailadres, naam, achternaam)VALUES (?, ?, ?)");
-            statement.setString(1, emailadres);
-            statement.setString(2, naam);
-            statement.setString(3, achternaam);
-            statement.executeUpdate();
+            ps = helper.getConnection().prepareStatement("INSERT INTO abonnee (emailadres, naam, achternaam)VALUES (?, ?, ?)");
+            ps.setString(1, emailadres);
+            ps.setString(2, naam);
+            ps.setString(3, achternaam);
+            helper.executeQuery(ps);
         } catch (SQLException e){
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    public List<IAbonnee> makeAbonneeList(){
-        List<IAbonnee> abonnees = new ArrayList<>();
-        int abonneeId;
-        String voornaam;
-        String mail;
-        String achternaam;
-        int teller=0;
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet rs=statement.executeQuery("select * from abonnee");
-
-            while (rs.next()){
-                teller++;
-                abonneeId = rs.getInt("abonneeId");
-                voornaam = rs.getString("naam");
-                achternaam = rs.getString("achternaam");
-                mail = rs.getString("emailadres");
-                abonnees.add(new Abonnee(voornaam,achternaam,mail,abonneeId));
-            }
-
-        } catch (SQLException e) {
+        } catch (NoDatabaseConnectionException e) {
             e.printStackTrace();
         }
-
-        return abonnees;
-    }
-
-    public void closeConnection() throws SQLException {
-        connection.close();
     }
 }

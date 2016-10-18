@@ -8,18 +8,10 @@ import java.util.List;
  */
 public interface IAbonneeAccess {
 
-    public String getNaam(int id) throws SQLException;
+    List<IAbonnee> getAllAbonnees();
 
-    public String getAchternaam(int id) throws SQLException;
+    IAbonnee findAbonneeMetEmail(String email);
 
-    public String getEmailadres(int id) throws SQLException;
-
-    public IAbonnee findAbonnee(int id);
-
-    public IAbonnee findAbonneeMetEmail(String email);
-
-    public void createAbonnee(String naam, String achternaam, String emailadres);
-
-    public List<IAbonnee> makeAbonneeList();
+    void createAbonnee(String naam, String achternaam, String emailadres);
 
 }

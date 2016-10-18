@@ -13,11 +13,14 @@ import static org.junit.Assert.assertNotNull;
 public class AbonneeDAOMySQLTest {
 
     private static AbonneeDAOMySQL dao = new AbonneeDAOMySQL();
-    private static List<IAbonnee> abonneeList = dao.makeAbonneeList();
+    private static List<IAbonnee> abonneeList = dao.getAllAbonnees();
 
     @Test
     public void testGet() throws Exception {
         assertNotNull(abonneeList);
+        for (int i = 0; i < abonneeList.size(); i++) {
+            System.out.println("Abonnee: " + abonneeList.get(i));
+        }
     }
 
     @Test
@@ -49,10 +52,10 @@ public class AbonneeDAOMySQLTest {
         System.out.println(dao.findAbonneeMetEmail("sjaak.vdberg@live.nl"));
     }
 
-//    @Test
-//    public void testInsertAbonnee() throws Exception {
-//        dao.createAbonnee("Hans", "Teeuwen", "Hans@Teeuwen@hotmail.nl");
-//        abonneeList = dao.makeAbonneeList();
-//        assertEquals(dao.findAbonnee(3).getAchternaam(), "Teeuwen");
-//    }
+    @Test
+    public void testInsertAbonnee() throws Exception {
+        dao.createAbonnee("Hans", "Teeuwen", "Hans@Teeuwen@hotmail.nl");
+        IAbonnee expectedValue = dao.findAbonneeMetEmail("Hans@Teeuwen@hotmail.nl");
+        assertNotNull(expectedValue);
+    }
 }

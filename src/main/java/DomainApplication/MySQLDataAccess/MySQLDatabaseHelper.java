@@ -122,4 +122,8 @@ public class MySQLDatabaseHelper {
         }
         connection = newConnection;
     }
+
+    public Connection getConnection() {
+        return this.connection;
+    }
 }
