@@ -1,6 +1,4 @@
-package main.java.DomainApplication.MySQLDataAccess;
-
-import sun.rmi.runtime.Log;
+package DomainApplication.MySQLDataAccess;
 
 import java.sql.*;
 

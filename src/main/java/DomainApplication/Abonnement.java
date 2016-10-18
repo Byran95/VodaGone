@@ -1,6 +1,5 @@
-package main.java.DomainApplication;
+package DomainApplication;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 /**

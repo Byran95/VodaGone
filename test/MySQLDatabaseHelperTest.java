@@ -1,10 +1,8 @@
-import main.java.DomainApplication.MySQLDataAccess.MySQLDatabaseHelper;
-import main.java.DomainApplication.MySQLDataAccess.NoDatabaseConnectionException;
+import DomainApplication.MySQLDataAccess.MySQLDatabaseHelper;
+import DomainApplication.MySQLDataAccess.NoDatabaseConnectionException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

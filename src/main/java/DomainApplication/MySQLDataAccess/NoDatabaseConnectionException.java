@@ -1,4 +1,4 @@
-package main.java.DomainApplication.MySQLDataAccess;
+package DomainApplication.MySQLDataAccess;
 
 /**
  * Created by Anders Egberts on 17/10/2016.

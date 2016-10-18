@@ -1,7 +1,7 @@
+import DomainApplication.Dienst;
+import DomainApplication.IDienst;
+import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
 import TestUtil.MockedResultSet;
-import main.java.DomainApplication.Dienst;
-import main.java.DomainApplication.IDienst;
-import main.java.DomainApplication.MySQLDataAccess.DienstDAOMySQL;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
