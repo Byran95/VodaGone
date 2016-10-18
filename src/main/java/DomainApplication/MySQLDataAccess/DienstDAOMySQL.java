@@ -12,13 +12,24 @@ import java.util.List;
 /**
  * Created by Anders Egberts on 12/10/2016.
  */
-public class DienstDAOMySQL implements IDienstAccess {
+public class DienstDAOMySQL extends MySQLDataAccessObject implements IDienstAccess {
     @Override
     public List<IDienst> getAll() {
-        MySQLDatabaseHelper helper = new MySQLDatabaseHelper();
-        ResultSet resultSet = helper.executeQuery("SELECT * FROM dienst");
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+
+        ResultSet resultSet = null;
+        try {
+            resultSet = helper.executeQuery("SELECT * FROM dienst");
+            System.out.println( "Query executed" );
+            System.out.println( "preferredConnection: " + preferredConnection );
+            System.out.println( "helper: " + helper );
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
         try {
             List<IDienst> results = new ArrayList<>();
+            System.out.println( "resultSet: " + resultSet );
+
             while (resultSet.next()) {
                 Dienst dienst = new Dienst(
                         resultSet.getString("bedrijf"),
@@ -32,11 +43,14 @@ public class DienstDAOMySQL implements IDienstAccess {
                 );
                 results.add(dienst);
             }
+
+            helper.close();
+
             return results;
         } catch (SQLException e) {
+            helper.close();
             e.printStackTrace();
         }
-
         return null;
     }
 

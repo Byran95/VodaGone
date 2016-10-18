@@ -1,6 +1,6 @@
 import main.java.DomainApplication.MySQLDataAccess.MySQLDatabaseHelper;
+import main.java.DomainApplication.MySQLDataAccess.NoDatabaseConnectionException;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Anders Egberts on 17/10/2016.
@@ -22,7 +21,12 @@ public class MySQLDatabaseHelperTest {
     }
     @Test
     public void testQuery() {
-        ResultSet resultSet = dbHelper.executeQuery( "SELECT * FROM Dienst" );
+        ResultSet resultSet = null;
+        try {
+            resultSet = dbHelper.executeQuery( "SELECT * FROM Dienst" );
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
         assertNotNull( resultSet );
         try {
             resultSet.close();

@@ -1,5 +1,7 @@
 package main.java.DomainApplication.MySQLDataAccess;
 
+import sun.rmi.runtime.Log;
+
 import java.sql.*;
 
 /**
@@ -16,14 +18,30 @@ public class MySQLDatabaseHelper {
      * Creates the object. On creation the object will attemp to connect to the db.
      */
     public MySQLDatabaseHelper() {
+        System.out.println( "No custom connection" );
         try {
-            connection = DriverManager.getConnection( DATABASE_URL , USER , PASS );
-        } catch ( SQLException e ) {
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASS);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public ResultSet executeQuery( String statement ) {
+    /**
+     * @param preferredConnection Specify a connection to create a custom connection (for testing purposes).
+     *                            Leave empty to use default MySQL connection.
+     * Creates the object. On creation the object will attemp to connect to the db.
+     */
+    public MySQLDatabaseHelper( Connection preferredConnection ) {
+        System.out.println( "With custom connection" );
+        setConnection( preferredConnection );
+    }
+
+    public ResultSet executeQuery( String statement ) throws NoDatabaseConnectionException {
+
+        if ( null == connection ) {
+            throw new NoDatabaseConnectionException();
+        }
+
         try {
             PreparedStatement preparedStatement = connection.prepareStatement( statement );
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -43,5 +61,19 @@ public class MySQLDatabaseHelper {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Allows the programmer to set-up a custom connection (for mockpurposes).
+     */
+    public void setConnection( Connection newConnection ) {
+        if ( null != connection ){
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        connection = newConnection;
     }
 }
