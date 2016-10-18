@@ -2,6 +2,7 @@ package main.java.DomainApplication.MySQLDataAccess;
 
 import main.java.DomainApplication.Abonnee;
 import main.java.DomainApplication.IAbonnee;
+import main.java.DomainApplication.IAbonneeAccess;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * Created by Bryan van Elden on 14-10-16.
  */
-public class AbonneeDAOMySQL {
+public class AbonneeDAOMySQL implements IAbonneeAccess {
     private String URL = "jdbc:mysql://localhost/vodagone";
     private String USER = "root";
     private String PASS = "";
@@ -39,16 +40,19 @@ public class AbonneeDAOMySQL {
         }
     }
 
+    @Override
     public String getNaam(int id) throws SQLException {
         return getResults(id).getString("naam");
 
     }
 
+    @Override
     public String getAchternaam(int id) throws SQLException {
         return getResults(id).getString("achternaam");
 
     }
 
+    @Override
     public String getEmailadres(int id) throws SQLException {
         return getResults(id).getString("emailadres");
 
@@ -65,11 +69,10 @@ public class AbonneeDAOMySQL {
             e.printStackTrace();
 
         }
-
         return rs;
-
     }
 
+    @Override
     public IAbonnee findAbonnee(int id){
         prepareStatement();
         try {
@@ -81,6 +84,7 @@ public class AbonneeDAOMySQL {
         return null;
     }
 
+    @Override
     public IAbonnee findAbonneeMetEmail(String email) {
         PreparedStatement statement;
         int abonneeId = 0;
@@ -104,6 +108,7 @@ public class AbonneeDAOMySQL {
         return null;
     }
 
+    @Override
     public void createAbonnee(String naam, String achternaam, String emailadres){
         PreparedStatement statement;
 
@@ -118,6 +123,7 @@ public class AbonneeDAOMySQL {
         }
     }
 
+    @Override
     public List<IAbonnee> makeAbonneeList(){
         List<IAbonnee> abonnees = new ArrayList<>();
         int abonneeId;
