@@ -1,5 +1,7 @@
 package main.java.DomainApplication;
 
+import main.java.DomainApplication.IAbonnee;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**

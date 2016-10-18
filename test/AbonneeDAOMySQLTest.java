@@ -18,13 +18,6 @@ public class AbonneeDAOMySQLTest {
     private static AbonneeDAOMySQL dao = new AbonneeDAOMySQL();
     private static List<IAbonnee> abonneeList = dao.makeAbonneeList();
 
-    @Before
-    public void before() {
-        for (IAbonnee abonnee : abonneeList){
-            System.out.println(abonnee);
-        }
-    }
-
     @Test
     public void testGet() throws Exception {
         assertNotNull(abonneeList);
@@ -50,4 +43,19 @@ public class AbonneeDAOMySQLTest {
         String actualEmailadres = abonneeList.get(0).getEmailadres();
         assertEquals(expectedEmailadres, actualEmailadres);
     }
+
+    @Test
+    public void testAbonneeMetEmail() throws Exception {
+        int expectedAbonneeId = 1;
+        int actualAbonneeId = dao.findAbonneeMetEmail("sjaak.vdberg@live.nl").getAbonneeId();
+        assertEquals(expectedAbonneeId, actualAbonneeId);
+        System.out.println(dao.findAbonneeMetEmail("sjaak.vdberg@live.nl"));
+    }
+
+//    @Test
+//    public void testInsertAbonnee() throws Exception {
+//        dao.createAbonnee("Hans", "Teeuwen", "Hans@Teeuwen@hotmail.nl");
+//        abonneeList = dao.makeAbonneeList();
+//        assertEquals(dao.findAbonnee(3).getAchternaam(), "Teeuwen");
+//    }
 }

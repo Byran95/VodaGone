@@ -81,6 +81,43 @@ public class AbonneeDAOMySQL {
         return null;
     }
 
+    public IAbonnee findAbonneeMetEmail(String email) {
+        PreparedStatement statement;
+        int abonneeId = 0;
+
+        try {
+            statement = connection.prepareStatement("SELECT * FROM abonnee WHERE emailadres = ?");
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
+            abonneeId = rs.findColumn("abonneeId");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            prepareStatement();
+            return new Abonnee(getNaam(abonneeId), getAchternaam(abonneeId), getEmailadres(abonneeId), abonneeId);
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
+    public void createAbonnee(String naam, String achternaam, String emailadres){
+        PreparedStatement statement;
+
+        try {
+            statement = connection.prepareStatement("INSERT INTO abonnee (emailadres, naam, achternaam)VALUES (?, ?, ?)");
+            statement.setString(1, emailadres);
+            statement.setString(2, naam);
+            statement.setString(3, achternaam);
+            statement.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public List<IAbonnee> makeAbonneeList(){
         List<IAbonnee> abonnees = new ArrayList<>();
         int abonneeId;
