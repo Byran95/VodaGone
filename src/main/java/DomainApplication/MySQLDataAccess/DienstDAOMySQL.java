@@ -20,16 +20,50 @@ public class DienstDAOMySQL extends MySQLDataAccessObject implements IDienstAcce
         ResultSet resultSet = null;
         try {
             resultSet = helper.executeQuery("SELECT * FROM dienst");
-            System.out.println( "Query executed" );
-            System.out.println( "preferredConnection: " + preferredConnection );
-            System.out.println( "helper: " + helper );
         } catch (NoDatabaseConnectionException e) {
             e.printStackTrace();
         }
+        helper.close();
+        List<IDienst> convertedList = convertResultSet( resultSet );
         try {
-            List<IDienst> results = new ArrayList<>();
-            System.out.println( "resultSet: " + resultSet );
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return convertedList;
+    }
 
+    /**
+     * Searches the diensts in the database that match the search term.
+     *
+     * @param searchTerm this word mut either be in the title, companyname or discription of the service.
+     * @return a list containing all matching services.
+     */
+    @Override
+    public List<IDienst> search(String searchTerm) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+
+        ResultSet resultSet = null;
+
+        try {
+            resultSet = helper.executeQuery( "SELECT * FROM dienst WHERE naam LIKE %?%" , new String[]{searchTerm});
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+        helper.close();
+        List<IDienst> convertedList = convertResultSet( resultSet );
+        try {
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return convertedList;
+    }
+
+    private List<IDienst> convertResultSet( ResultSet resultSet ) {
+        List<IDienst> results = new ArrayList<>();
+
+        try {
             while (resultSet.next()) {
                 Dienst dienst = new Dienst(
                         resultSet.getString("bedrijf"),
@@ -43,12 +77,8 @@ public class DienstDAOMySQL extends MySQLDataAccessObject implements IDienstAcce
                 );
                 results.add(dienst);
             }
-
-            helper.close();
-
             return results;
         } catch (SQLException e) {
-            helper.close();
             e.printStackTrace();
         }
         return null;

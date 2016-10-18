@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -33,6 +34,12 @@ public class MySQLDatabaseHelperTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test(expected = NoDatabaseConnectionException.class)
+    public void testNoConnection() throws NoDatabaseConnectionException {
+        dbHelper.setConnection( null );
+        dbHelper.executeQuery( "" );
     }
 
     @After
