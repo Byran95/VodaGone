@@ -1,8 +1,8 @@
-package main.java.DomainApplication.MySQLDataAccess;
+package DomainApplication.MySQLDataAccess;
 
-import main.java.DomainApplication.Dienst;
-import main.java.DomainApplication.IDienst;
-import main.java.DomainApplication.IDienstAccess;
+import DomainApplication.Dienst;
+import DomainApplication.IDienst;
+import DomainApplication.IDienstAccess;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

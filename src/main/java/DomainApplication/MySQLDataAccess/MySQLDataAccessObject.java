@@ -1,4 +1,4 @@
-package main.java.DomainApplication.MySQLDataAccess;
+package DomainApplication.MySQLDataAccess;
 
 import java.sql.Connection;
 

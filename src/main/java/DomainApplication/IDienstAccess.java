@@ -1,4 +1,4 @@
-package main.java.DomainApplication;
+package DomainApplication;
 
 import java.util.List;
 

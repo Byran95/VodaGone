@@ -1,8 +1,9 @@
-package main.java.DomainApplication.MySQLDataAccess;
+package DomainApplication.MySQLDataAccess;
 
-import main.java.DomainApplication.Abonnee;
-import main.java.DomainApplication.IAbonnee;
-import main.java.DomainApplication.IAbonneeAccess;
+
+import DomainApplication.Abonnee;
+import DomainApplication.IAbonnee;
+import DomainApplication.IAbonneeAccess;
 
 import java.sql.*;
 import java.util.ArrayList;

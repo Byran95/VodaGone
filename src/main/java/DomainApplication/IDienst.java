@@ -1,4 +1,4 @@
-package main.java.DomainApplication;
+package DomainApplication;
 
 /**
  * Created by Anders Egberts on 12/10/2016.

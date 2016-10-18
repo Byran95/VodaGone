@@ -1,4 +1,4 @@
-package main.java.DomainApplication;
+package DomainApplication;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,11 +1,8 @@
-import main.java.DomainApplication.IAbonnee;
-import main.java.DomainApplication.IAbonnement;
-import main.java.DomainApplication.MySQLDataAccess.AbonnementDAOMySQL;
-import org.junit.After;
+import DomainApplication.IAbonnement;
+import DomainApplication.MySQLDataAccess.AbonnementDAOMySQL;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

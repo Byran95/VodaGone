@@ -1,6 +1,7 @@
-package main.java.DomainApplication.MySQLDataAccess;
+package DomainApplication.MySQLDataAccess;
 
-import main.java.DomainApplication.*;
+import DomainApplication.*;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

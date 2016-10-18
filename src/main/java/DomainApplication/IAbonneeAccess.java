@@ -1,4 +1,4 @@
-package main.java.DomainApplication;
+package DomainApplication;
 
 import java.sql.SQLException;
 import java.util.List;
