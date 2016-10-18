@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by Michel Koolwaaij on 10-10-16.
  */
-public class AbonneeClientTest {
+public class AbonneeDAOMySQLTest {
 
     private static AbonneeDAOMySQL dao = new AbonneeDAOMySQL();
     private static List<IAbonnee> abonneeList = dao.makeAbonneeList();
@@ -49,11 +49,5 @@ public class AbonneeClientTest {
         String expectedEmailadres = "sjaak.vdberg@live.nl";
         String actualEmailadres = abonneeList.get(0).getEmailadres();
         assertEquals(expectedEmailadres, actualEmailadres);
-    }
-
-    @After
-    public void after() throws SQLException {
-        dao.closeConnection();
-        System.out.println("connection closed");
     }
 }

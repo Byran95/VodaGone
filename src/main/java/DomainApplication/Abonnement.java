@@ -8,21 +8,19 @@ import java.util.ArrayList;
  */
 public class Abonnement implements IAbonnement {
     private int abonnementId;
-    private Date startDatum;
+    private String startDatum;
     private boolean verdubbeld;
     private ArrayList<IAbonnee> gedeeldMet = new ArrayList<>();
     private AbonnementSoort soort;
     private AbonnementStatus status;
     private IDienst dienst;
 
-    public Abonnement(int abonnementId, Date startDatum, boolean verdubbeld, ArrayList<IAbonnee> gedeeldMet, AbonnementSoort soort, AbonnementStatus status, IDienst dienst){
+    public Abonnement(int abonnementId, String startDatum, boolean verdubbeld, AbonnementSoort soort, AbonnementStatus status ){
         this.abonnementId=abonnementId;
         this.startDatum=startDatum;
         this.verdubbeld = verdubbeld;
-        this.gedeeldMet=gedeeldMet;
         this.soort=soort;
         this.status=status;
-        this.dienst=dienst;
     }
 
     @Override
