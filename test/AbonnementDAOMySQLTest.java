@@ -229,8 +229,28 @@ public class AbonnementDAOMySQLTest {
 //        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
 //        dao.updateAbonnementSoort(AbonnementSoort.JAAR, abonnee, dienst);
 //        dao.getUpdateAbonnementStatus(AbonnementStatus.PROEF, abonnee, dienst);
-        System.out.println("abonneeId: " + abonnee.getAbonneeId());
-        System.out.println("bedrijf: " + dienst.getBedrijf());
-        System.out.println("naam: " + dienst.getNaam());
+    }
+
+    @Test
+    public void testUpdateIsVerdubbeld() throws Exception {
+        IAbonnee abonnee = new Abonnee(
+                "Sjaak",
+                "van de Berg",
+                "sjaak.vdberg@live.nl",
+                1
+        );
+
+        IDienst dienst = new Dienst(
+                "Vodafone",
+                "Mobiel 100",
+                "Mobiele telefonie met 100 minuten, SMS of GB",
+                5,
+                25,
+                45,
+                false,
+                false
+        );
+//        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
+//        dao.updateIsVerdubbeld(true, abonnee, dienst);
     }
 }

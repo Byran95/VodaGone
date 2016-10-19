@@ -13,7 +13,9 @@ public interface IAbonnementAccess {
 
     void updateAbonnementSoort(AbonnementSoort soort, IAbonnee abonnee, IDienst dienst);
 
-    void getUpdateAbonnementStatus(AbonnementStatus status, IAbonnee abonnee, IDienst dienst);
+    void updateAbonnementStatus(AbonnementStatus status, IAbonnee abonnee, IDienst dienst);
+
+    void updateIsVerdubbeld(boolean isVerdubbeld, IAbonnee abonnee, IDienst dienst);
 
     AbonnementSoort getEnumSoort(String soort);
 

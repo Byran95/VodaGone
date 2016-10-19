@@ -106,13 +106,32 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     }
 
     @Override
-    public void getUpdateAbonnementStatus(AbonnementStatus status, IAbonnee abonnee, IDienst dienst) {
+    public void updateAbonnementStatus(AbonnementStatus status, IAbonnee abonnee, IDienst dienst) {
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
 
         try {
             ps = helper.getConnection().prepareStatement("UPDATE abonnement SET abonnementStatus=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
             ps.setString(1, status.toString());
+            ps.setInt(2, abonnee.getAbonneeId());
+            ps.setString(3, dienst.getBedrijf());
+            ps.setString(4, dienst.getNaam());
+            helper.executeQuery(ps);
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateIsVerdubbeld(boolean isVerdubbeld, IAbonnee abonnee, IDienst dienst) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+
+        try {
+            ps = helper.getConnection().prepareStatement("UPDATE abonnement SET verdubbeld=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
+            ps.setBoolean(1, isVerdubbeld);
             ps.setInt(2, abonnee.getAbonneeId());
             ps.setString(3, dienst.getBedrijf());
             ps.setString(4, dienst.getNaam());
