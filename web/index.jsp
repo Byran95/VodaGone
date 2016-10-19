@@ -13,7 +13,7 @@
   <body>
     <p>Ur mom is uglee</p>
     <ul>
-      <li><a href="/AbonnementView.jsp" >Abonnementen</a></li>
+      <li><a href="/abonnementen" >Abonnementen</a></li>
       <li><a href="/TryService.jsp" >Dienst uitproberen</a></li>
     </ul>
   </body>

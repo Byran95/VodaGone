@@ -1,5 +1,6 @@
 package RESTService;
 
+import DomainApplication.AbonnementDAOFactory;
 import DomainApplication.IAbonnement;
 
 import java.util.List;
@@ -10,10 +11,10 @@ import java.util.List;
 public class AbonnementService {
 
     public List<IAbonnement> getAll() {
-        return null;
+        return AbonnementDAOFactory.getAccessObject().getAllAbonnementen();
     }
 
-    public List<IAbonnement> getByAbonnee() {
-        return null;
+    public List<IAbonnement> getByAbonnee( int abonneeId ) {
+        return AbonnementDAOFactory.getAccessObject().findAbonnementenVanAbonnee( abonneeId );
     }
 }

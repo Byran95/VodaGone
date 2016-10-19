@@ -4,6 +4,7 @@
 *.iws
 out/
 settings.xml
+test/main.java
 
 # Maven
 log/

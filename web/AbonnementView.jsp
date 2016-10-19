@@ -12,6 +12,7 @@
 </head>
 <body>
     <h1>Abonnementen:</h1>
+    <h2>${requestScope.swagTest}</h2>
     <table>
     <tr>
         <th>Title</th>
@@ -20,7 +21,7 @@
     </tr>
     <c:forEach items="${requestScope.abonnementen}" var="abonnement">
         <tr>
-            <td>Abonnement</td>
+            <td>${abonnement.naam}</td>
             <td>Placeholder</td>
             <td><a href="/shareSubscription" >Share</a> - <a href="/upgradeSubscription" >Upgrade</a> - <a href="/cancelSubscription" >Cancel</a></td>
         </tr>
