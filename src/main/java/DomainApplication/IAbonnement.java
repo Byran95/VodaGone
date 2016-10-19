@@ -20,7 +20,7 @@ public interface IAbonnement {
 
     int getAbonneeId();
 
-    Date getStartDatum();
+    String getStartDatum();
 
     boolean getVerdubbeld();
 
@@ -32,9 +32,9 @@ public interface IAbonnement {
 
     IDienst getDienst();
 
-    void setAbonneeId(Date abonneeId);
+    void setAbonneeId(int abonneeId);
 
-    void setStartDatum(Date startDatum);
+    void setStartDatum(String startDatum);
 
     void setVerdubbeld(String verdubbeld);
 
@@ -44,5 +44,5 @@ public interface IAbonnement {
 
     void setStatus(int status);
 
-    void setDienst(int dienst);
+    void setDienst(IDienst dienst);
 }
