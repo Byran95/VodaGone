@@ -85,7 +85,7 @@ public class AbonneeDAOMySQLTest {
 
         when( mockedConnection.createStatement() ).thenReturn( mockedStatement );
         when( mockedConnection.prepareStatement( anyString() ) ).thenReturn( mockedPreparedStatement );
-        when( mockedPreparedStatement.executeQuery() ).thenReturn( new AbonneeDAOMySQLTest.AbonneeResultSet() );
+        when( mockedPreparedStatement.executeQuery() ).thenReturn( new AbonneeResultSet() );
 
         abonneeDAO.setConnection( mockedConnection );
     }

@@ -11,82 +11,78 @@ import java.util.logging.Logger;
 /**
  * Created by Bryan van Elden on 12/10/2016.
  */
-public class AbonnementDAOMySQL implements IAbonnementAccess {
-    private String URL = "jdbc:mysql://localhost/vodagone";
-    private String USER = "root";
-    private String PASS = "";
-    private Connection connection;
-    private PreparedStatement ps;
-    Logger logger = Logger.getLogger("logger");
+public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonnementAccess {
 
-    public AbonnementDAOMySQL(){
+    @Override
+    public List<IAbonnement> getAllAbonnementen() {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+
+        ResultSet resultSet = null;
         try {
-            connection = DriverManager.getConnection(URL,USER,PASS);
+            resultSet = helper.executeQuery("SELECT dienst.*, abonnement.abonneeId, abonnement.abonnementStatus, abonnement.abonnementSoort, abonnement.startDatum, abonnement.verdubbeld FROM abonnement INNER JOIN dienst ON abonnement.bedrijf = dienst.bedrijf AND abonnement.naam = dienst.naam");
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+        helper.close();
+        List<IAbonnement> convertedList = convertResultSet( resultSet );
+        try {
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (connection==null) {
-            logger.log(Level.WARNING,"Biebel");
-        }
+        return convertedList;
     }
 
-    public void prepareStatement(){
+    private List<IAbonnement> convertResultSet( ResultSet resultSet ) {
+        List<IAbonnement> results = new ArrayList<>();
+
         try {
-            ps = connection.prepareStatement("SELECT * FROM abonnement WHERE abonneeId=?");
-        } catch (SQLException e){
+            while (resultSet.next()) {
+                IAbonnement abonnement = new Abonnement(
+                        resultSet.getInt("abonneeId"),
+                        resultSet.getString("startDatum"),
+                        resultSet.getBoolean("verdubbeld"),
+                        getEnumSoort(resultSet.getString("abonnementSoort")),
+                        getEnumStatus(resultSet.getString("abonnementStatus"))
+                );
+                abonnement.setDienst(new Dienst(
+                        resultSet.getString("bedrijf"),
+                        resultSet.getString("naam"),
+                        resultSet.getString("beschrijving"),
+                        resultSet.getInt("maandPrijs"),
+                        resultSet.getInt("halfJaarPrijs"),
+                        resultSet.getInt("jaarPrijs"),
+                        resultSet.getBoolean("verdubbelbaar"),
+                        resultSet.getBoolean("deelbaar"))
+                );
+                results.add(abonnement);
+            }
+            System.out.println("Size: " + results.size());
+            System.out.println("First record: : " + results);
+            return results;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public String getAbonnee(int id) throws SQLException {
-        return getResults(id).getString("abonneeId");
-
-    }
-
-    public String getBedrijf(int id) throws SQLException {
-        return getResults(id).getString("bedrijf");
-
-    }
-
-    public String getNaam(int id) throws SQLException {
-        return getResults(id).getString("naam");
-
-    }
-
-    private ResultSet getResults(int id){
-        ResultSet rs = null;
-        try {
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            rs.first();
-        } catch (SQLException e){
-            System.out.println("Fout hierzo");
-            e.printStackTrace();
-        }
-        return rs;
+        return null;
     }
 
     public List<IAbonnement> findAbonnementenVanAbonnee(int id){
-        prepareStatement();
-        ResultSet rs = getResults(id);
-        List<IAbonnement> mijnAbonnementen = new ArrayList<>();
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+        List<IAbonnement> mijnAbonnementen;
 
         try {
-            rs.beforeFirst();
-            while (rs.next()){
-                mijnAbonnementen.add(new Abonnement(
-                        rs.getInt("abonneeId"),
-                        rs.getString("startDatum"),
-                        rs.getBoolean("verdubbeld"),
-                        getEnumSoort(rs.getString("abonneeId")),
-                        getEnumStatus(rs.getString("abonneeId")))
-                );
-            }
+            ps = helper.getConnection().prepareStatement("SELECT * FROM abonnement INNER JOIN dienst ON abonnement.bedrijf = dienst.bedrijf AND abonnement.naam = dienst.naam WHERE abonnement.abonneeId = ?");
+            ps.setInt(1, id);
+            mijnAbonnementen = convertResultSet(helper.executeQuery(ps));
+            return mijnAbonnementen;
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
         }
-        return mijnAbonnementen;
+        return null;
     }
 
     private AbonnementSoort getEnumSoort(String soort) {
@@ -109,40 +105,5 @@ public class AbonnementDAOMySQL implements IAbonnementAccess {
             default:
                 return AbonnementStatus.ACTIEF;
         }
-    }
-
-    public List<IAbonnement> makeAbonnementList(){
-        List<IAbonnement> abonnementen = new ArrayList<>();
-
-        int abonneeId;
-        String startDatum;
-        boolean verdubbeld;
-        String soort;
-        String status;
-
-        int teller=0;
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet rs=statement.executeQuery("select * from abonnement");
-
-            while (rs.next()){
-                teller++;
-                abonneeId = rs.getInt("abonneeId");
-                startDatum = rs.getString("startDatum");
-                verdubbeld = rs.getBoolean("verdubbeld");
-                soort = rs.getString("abonneeId");
-                status = rs.getString("abonneeId");
-                abonnementen.add(new Abonnement(abonneeId, startDatum, verdubbeld, getEnumSoort(soort), getEnumStatus(status)));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return abonnementen;
-    }
-
-    public void closeConnection() throws SQLException {
-        connection.close();
     }
 }

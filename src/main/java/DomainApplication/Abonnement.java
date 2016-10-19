@@ -14,12 +14,12 @@ public class Abonnement implements IAbonnement {
     private AbonnementStatus status;
     private IDienst dienst;
 
-    public Abonnement(int abonnementId, String startDatum, boolean verdubbeld, AbonnementSoort soort, AbonnementStatus status ){
-        this.abonnementId=abonnementId;
-        this.startDatum=startDatum;
+    public Abonnement(int abonnementId, String startDatum, boolean verdubbeld, AbonnementSoort soort, AbonnementStatus status) {
+        this.abonnementId = abonnementId;
+        this.startDatum = startDatum;
         this.verdubbeld = verdubbeld;
-        this.soort=soort;
-        this.status=status;
+        this.soort = soort;
+        this.status = status;
     }
 
     @Override
@@ -49,13 +49,13 @@ public class Abonnement implements IAbonnement {
 
     @Override
     public int getAbonneeId() {
-        return 0;
+        return this.abonnementId;
     }
 
     //    Getters and Setters
     @Override
-    public java.util.Date getStartDatum() {
-        return null;
+    public String getStartDatum() {
+        return this.startDatum;
     }
 
     @Override
@@ -70,26 +70,26 @@ public class Abonnement implements IAbonnement {
 
     @Override
     public AbonnementSoort getSoort() {
-        return null;
+        return this.soort;
     }
 
     @Override
     public AbonnementStatus getStatus() {
-        return null;
+        return this.status;
     }
 
     @Override
     public IDienst getDienst() {
-        return null;
+        return this.dienst;
     }
 
     @Override
-    public void setAbonneeId(java.util.Date abonneeId) {
+    public void setAbonneeId(int abonneeId) {
 
     }
 
     @Override
-    public void setStartDatum(java.util.Date startDatum) {
+    public void setStartDatum(String startDatum) {
 
     }
 
@@ -114,7 +114,7 @@ public class Abonnement implements IAbonnement {
     }
 
     @Override
-    public void setDienst(int dienst) {
+    public void setDienst(IDienst dienst) {
 
     }
 }
