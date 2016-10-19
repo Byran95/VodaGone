@@ -5,8 +5,6 @@ import DomainApplication.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by Bryan van Elden on 12/10/2016.
@@ -144,23 +142,47 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     }
 
     @Override
-    public List<IAbonnement> getAbonnementTimesShared(IAbonnee abonnee, IDienst dienst) {
+    public boolean isAbonnementDelenToegestaan(IAbonnee abonnee, IAbonnement abonnement) {
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
-        List<IAbonnement> mijnAbonnementen;
+        int nGedeeld = 0;
+        ResultSet rs = null;
 
         try {
-            ps = helper.getConnection().prepareStatement("SELECT abonnement.* FROM abonnement INNER JOIN gedeeldeabonnementen ON abonnement.abonneeId = gedeeldeabonnementen.abonneeId WHERE abonnement.abonneeId = ?");
+            ps = helper.getConnection().prepareStatement(
+                    "SELECT COUNT(*) AS nGedeeld \n" +
+                            "FROM abonnement \n" +
+                            "INNER JOIN gedeeldeabonnementen \n" +
+                            "\tON gedeeldeabonnementen.abonneeId = abonnement.abonneeId\n" +
+                            "    AND gedeeldeabonnementen.bedrijf = abonnement.bedrijf\n" +
+                            "    AND gedeeldeabonnementen.naam = abonnement.naam\n" +
+                            "WHERE abonnement.abonneeId = ? " +
+                            "AND abonnement.bedrijf = ? " +
+                            "AND abonnement.naam = ?");
             ps.setInt(1, abonnee.getAbonneeId());
-            mijnAbonnementen = convertResultSet(helper.executeQuery(ps));
-            return mijnAbonnementen;
+            ps.setString(2, abonnement.getDienst().getBedrijf());
+            ps.setString(3, abonnement.getDienst().getNaam());
+
+            rs = helper.executeQuery(ps);
 
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoDatabaseConnectionException e) {
             e.printStackTrace();
         }
-        return null;
+
+        try {
+            while (rs.next()) {
+                nGedeeld = rs.getInt("nGedeeld");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(nGedeeld < 2) {
+            return true;
+        }
+        System.out.println("nGedeeld: " + nGedeeld);
+        return false;
     }
 
     @Override

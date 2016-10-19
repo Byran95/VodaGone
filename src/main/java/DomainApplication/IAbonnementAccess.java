@@ -17,7 +17,7 @@ public interface IAbonnementAccess {
 
     void updateIsVerdubbeld(boolean isVerdubbeld, IAbonnee abonnee, IDienst dienst);
 
-    List<IAbonnement> getAbonnementTimesShared(IAbonnee abonnee, IDienst dienst);
+    boolean isAbonnementDelenToegestaan(IAbonnee abonnee, IAbonnement abonnement);
 
     void shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst);
 

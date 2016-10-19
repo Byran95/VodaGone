@@ -34,17 +34,5 @@ public interface IAbonnement {
 
     IDienst getDienst();
 
-    void setAbonneeId(int abonneeId);
-
-    void setStartDatum(String startDatum);
-
-    void setVerdubbeld(String verdubbeld);
-
-    void setGedeeldMet(String gedeeldMet);
-
-    void setSoort(int soort);
-
-    void setStatus(int status);
-
     void setDienst(IDienst dienst);
 }

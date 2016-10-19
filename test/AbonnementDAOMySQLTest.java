@@ -204,7 +204,15 @@ public class AbonnementDAOMySQLTest {
                 false,
                 false
         ));
-        assertEquals(expectedAbonnement.getDienst(), abonnementList.get(0).getDienst());
+
+        assertEquals(expectedAbonnement.getDienst().getBedrijf(), abonnementList.get(1).getDienst().getBedrijf());
+        assertEquals(expectedAbonnement.getDienst().getNaam(), abonnementList.get(1).getDienst().getNaam());
+        assertEquals(expectedAbonnement.getDienst().getBeschrijving(), abonnementList.get(1).getDienst().getBeschrijving());
+        assertEquals(expectedAbonnement.getDienst().getMaandPrijs(), abonnementList.get(1).getDienst().getMaandPrijs());
+        assertEquals(expectedAbonnement.getDienst().getHalfJaarPrijs(), abonnementList.get(1).getDienst().getHalfJaarPrijs());
+        assertEquals(expectedAbonnement.getDienst().getJaarPrijs(), abonnementList.get(1).getDienst().getJaarPrijs());
+        assertEquals(expectedAbonnement.getDienst().isDeelbaar(), abonnementList.get(1).getDienst().isDeelbaar());
+        assertEquals(expectedAbonnement.getDienst().isVerdubbelbaar(), abonnementList.get(1).getDienst().isVerdubbelbaar());
     }
 
     @Test
@@ -252,6 +260,44 @@ public class AbonnementDAOMySQLTest {
         );
 //        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
 //        dao.updateIsVerdubbeld(true, abonnee, dienst);
+    }
+
+    @Test
+    public void testAbonneeTimesShared() throws Exception {
+        IAbonnee abonnee = new Abonnee(
+                "Sjaak",
+                "van de Berg",
+                "sjaak.vdberg@live.nl",
+                1
+        );
+
+        IAbonnement abonnement = new Abonnement(
+                1,
+                "2016-10-17 11:44:00",
+                false,
+                AbonnementSoort.HALFJAAR,
+                AbonnementStatus.ACTIEF
+        );
+
+        abonnement.setDienst(new Dienst(
+                "Vodafone",
+                "Mobiel 100",
+                "Mobiele telefonie met 100 minuten, SMS of GB",
+                5,
+                25,
+                45,
+                false,
+                false
+        ));
+        System.out.println(abonnement.getDienst().getNaam());
+        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
+        boolean isToegestaan = dao.isAbonnementDelenToegestaan(abonnee, abonnement);
+    }
+
+    @Test
+    public void testGetAllAbonnementenRealDB() throws Exception {
+        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
+        abonnementList = dao.getAllAbonnementen();
     }
 
 //    @Test
@@ -332,11 +378,4 @@ public class AbonnementDAOMySQLTest {
 ////        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
 ////        dao.updateIsVerdubbeld(true, abonnee, dienst);
 //    }
-    @Test
-    public void testGetAllAbonnementenRealDB() throws Exception {
-        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
-        System.out.print("-----------Hiero-----------");
-        abonnementList = dao.getAllAbonnementen();
-
-    }
 }

@@ -84,37 +84,7 @@ public class Abonnement implements IAbonnement {
     }
 
     @Override
-    public void setAbonneeId(int abonneeId) {
-
-    }
-
-    @Override
-    public void setStartDatum(String startDatum) {
-
-    }
-
-    @Override
-    public void setVerdubbeld(String verdubbeld) {
-
-    }
-
-    @Override
-    public void setGedeeldMet(String gedeeldMet) {
-
-    }
-
-    @Override
-    public void setSoort(int soort) {
-
-    }
-
-    @Override
-    public void setStatus(int status) {
-
-    }
-
-    @Override
     public void setDienst(IDienst dienst) {
-
+        this.dienst=dienst;
     }
 }
