@@ -1,34 +1,23 @@
 package RESTService;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
  * Created by Anders Egberts on 14/10/2016.
  */
-public class AbonnementServlet implements Servlet {
+@WebServlet(
+        urlPatterns = { "/abonnementen" }
+)
+public class AbonnementServlet extends HttpServlet {
+    AbonnementService service = new AbonnementService();
     @Override
-    public void init(ServletConfig servletConfig) throws ServletException {
-
-    }
-
-    @Override
-    public ServletConfig getServletConfig() {
-        return null;
-    }
-
-    @Override
-    public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
-
-    }
-
-    @Override
-    public String getServletInfo() {
-        return null;
-    }
-
-    @Override
-    public void destroy() {
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute( "abonnementen" , service.getAll() );
+        req.getRequestDispatcher( "/AbonnementView.jsp" ).forward( req , resp );
     }
 }

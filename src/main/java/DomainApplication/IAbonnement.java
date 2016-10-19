@@ -8,6 +8,8 @@ import java.util.Date;
  */
 public interface IAbonnement {
 
+    String naam = "Swag";
+
     void verdubbel();
 
     void deelMet( IAbonnee abonnee );
