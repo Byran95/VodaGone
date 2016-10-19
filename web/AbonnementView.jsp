@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Anders Egberts
@@ -12,7 +13,8 @@
 </head>
 <body>
     <h1>Abonnementen:</h1>
-    <h2>${requestScope.swagTest}</h2>
+    <p>Alles:</p>
+    <p>${requestScope.abonnementen}</p>
     <table>
     <tr>
         <th>Title</th>
@@ -21,7 +23,7 @@
     </tr>
     <c:forEach items="${requestScope.abonnementen}" var="abonnement">
         <tr>
-            <td>${abonnement.naam}</td>
+            <td>Fag </td>
             <td>Placeholder</td>
             <td><a href="/shareSubscription" >Share</a> - <a href="/upgradeSubscription" >Upgrade</a> - <a href="/cancelSubscription" >Cancel</a></td>
         </tr>

@@ -1,6 +1,7 @@
 package DomainApplication.MySQLDataAccess;
 
 import DomainApplication.*;
+import Util.ServerLogger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
             e.printStackTrace();
         }
         helper.close();
+        ServerLogger.log( getClass() , "resultSet: " + resultSet );
         List<IAbonnement> convertedList = convertResultSet( resultSet );
         try {
             resultSet.close();
