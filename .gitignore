@@ -1,0 +1,12 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+out/
+settings.xml
+test/main.java
+
+# Maven
+log/
+target/
+src/main/resources/
