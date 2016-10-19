@@ -7,7 +7,7 @@ import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
 public class DienstDAOFactory {
 
     public static IDienstAccess getAccessObject() {
-        switch ( SettingsReader.getPropertyString( "DatabaseType" , "MySQL" ) ) {
+        switch ( SettingsReader.getPropertyString( SettingsReader.DATABASE_TYPE_PROPERTY , "MySQL" ) ) {
             case "MySQL":
                 return new DienstDAOMySQL();
         }

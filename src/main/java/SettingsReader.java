@@ -20,6 +20,9 @@ import java.util.Properties;
 public class SettingsReader {
     private static final String PROPERTIES_FILENAME = "settings.xml";
 
+    //These variables will help developers find some important properties.
+    public static final String DATABASE_TYPE_PROPERTY = "DatabaseType";
+
     /**
      * Gets a property from the properties file. When the file or property can't be found return the defaultValue.
      * @param propertyName  The key of the property to return.

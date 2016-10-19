@@ -7,7 +7,7 @@ import DomainApplication.MySQLDataAccess.AbonneeDAOMySQL;
 public class AbonneeDAOFactory {
 
     public static IAbonneeAccess getAccessObject() {
-        switch ( SettingsReader.getPropertyString( "DatabaseType" , "MySQL" ) ) {
+        switch ( SettingsReader.getPropertyString( SettingsReader.DATABASE_TYPE_PROPERTY , "MySQL" ) ) {
             case "MySQL":
                 return new AbonneeDAOMySQL();
         }
