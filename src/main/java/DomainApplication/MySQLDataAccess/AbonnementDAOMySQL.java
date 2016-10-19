@@ -66,6 +66,7 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
         return null;
     }
 
+    @Override
     public List<IAbonnement> findAbonnementenVanAbonnee(int id){
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
@@ -85,7 +86,46 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
         return null;
     }
 
-    private AbonnementSoort getEnumSoort(String soort) {
+    @Override
+    public void updateAbonnementSoort(AbonnementSoort soort, IAbonnee abonnee, IDienst dienst) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+
+        try {
+            ps = helper.getConnection().prepareStatement("UPDATE abonnement SET abonnementSoort=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
+            ps.setString(1, soort.toString());
+            ps.setInt(2, abonnee.getAbonneeId());
+            ps.setString(3, dienst.getBedrijf());
+            ps.setString(4, dienst.getNaam());
+            helper.executeQuery(ps);
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getUpdateAbonnementStatus(AbonnementStatus status, IAbonnee abonnee, IDienst dienst) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+
+        try {
+            ps = helper.getConnection().prepareStatement("UPDATE abonnement SET abonnementStatus=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
+            ps.setString(1, status.toString());
+            ps.setInt(2, abonnee.getAbonneeId());
+            ps.setString(3, dienst.getBedrijf());
+            ps.setString(4, dienst.getNaam());
+            helper.executeQuery(ps);
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public AbonnementSoort getEnumSoort(String soort) {
         switch (soort) {
             case "MAAND":
                 return AbonnementSoort.MAAND;
@@ -96,7 +136,8 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
         }
     }
 
-    private AbonnementStatus getEnumStatus(String status) {
+    @Override
+    public AbonnementStatus getEnumStatus(String status) {
         switch (status) {
             case "OPGEZEGD":
                 return AbonnementStatus.OPGEZEGD;
