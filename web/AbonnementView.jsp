@@ -22,7 +22,7 @@
         <tr>
             <td>Abonnement</td>
             <td>Placeholder</td>
-            <td>Share - Upgrade - Cancel</td>
+            <td><a href="/shareSubscription" >Share</a> - <a href="/upgradeSubscription" >Upgrade</a> - <a href="/cancelSubscription" >Cancel</a></td>
         </tr>
     </c:forEach>
     </table>

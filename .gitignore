@@ -3,6 +3,7 @@
 *.iml
 *.iws
 out/
+settings.xml
 
 # Maven
 log/
