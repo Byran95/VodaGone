@@ -16,9 +16,13 @@ public class MySQLDatabaseHelper {
      * Creates the object. On creation the object will attempt to connect to the db.
      */
     public MySQLDatabaseHelper() {
+//        ServerLogger.log( getClass() , "No custom connection" );
         try {
+            DriverManager.registerDriver( new org.mariadb.jdbc.Driver() );
             connection = DriverManager.getConnection(DATABASE_URL, USER, PASS);
+//            ServerLogger.log( getClass() , "connection: " + connection );
         } catch (SQLException e) {
+//            ServerLogger.log( getClass() , "Failed to setup connection" );
             e.printStackTrace();
         }
     }
