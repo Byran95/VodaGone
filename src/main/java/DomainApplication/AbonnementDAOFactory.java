@@ -1,3 +1,5 @@
+package DomainApplication;
+
 import DomainApplication.IAbonnementAccess;
 import DomainApplication.MySQLDataAccess.AbonnementDAOMySQL;
 

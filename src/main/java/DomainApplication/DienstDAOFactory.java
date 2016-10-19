@@ -1,3 +1,5 @@
+package DomainApplication;
+
 import DomainApplication.IDienstAccess;
 import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
 
