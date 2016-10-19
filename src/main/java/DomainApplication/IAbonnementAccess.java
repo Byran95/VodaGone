@@ -17,6 +17,10 @@ public interface IAbonnementAccess {
 
     void updateIsVerdubbeld(boolean isVerdubbeld, IAbonnee abonnee, IDienst dienst);
 
+    List<IAbonnement> getAbonnementTimesShared(IAbonnee abonnee, IDienst dienst);
+
+    void shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst);
+
     AbonnementSoort getEnumSoort(String soort);
 
     AbonnementStatus getEnumStatus(String status);

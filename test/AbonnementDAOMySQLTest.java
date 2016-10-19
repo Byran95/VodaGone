@@ -253,4 +253,90 @@ public class AbonnementDAOMySQLTest {
 //        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
 //        dao.updateIsVerdubbeld(true, abonnee, dienst);
     }
+
+//    @Test
+//    public void testGet() throws Exception {
+//        abonnementList = abonnementDAO.getAllAbonnementen();
+//        assertNotNull(abonnementList);
+//    }
+//
+//    @Test
+//    public void testAbonnee() throws Exception {
+//        abonnementList = abonnementDAO.getAllAbonnementen();
+//        assertEquals(expectedAbonnement.getAbonneeId(), abonnementList.get(1).getAbonneeId());
+//        assertEquals(expectedAbonnement.getStartDatum(), abonnementList.get(1).getStartDatum());
+//        assertEquals(expectedAbonnement.getVerdubbeld(), abonnementList.get(1).getVerdubbeld());
+//        assertEquals(expectedAbonnement.getSoort(), abonnementList.get(1).getSoort());
+//        assertEquals(expectedAbonnement.getStatus(), abonnementList.get(1).getStatus());
+//    }
+//
+//    @Test
+//    public void testAbonneeMetDienst() throws Exception {
+//        abonnementList = abonnementDAO.getAllAbonnementen();
+//        expectedAbonnement.setDienst(new Dienst(
+//                "Vodafone",
+//                "Mobiel 100",
+//                "Mobiele telefonie met 100 minuten, SMS of GB",
+//                5,
+//                25,
+//                45,
+//                false,
+//                false
+//        ));
+//        assertEquals(expectedAbonnement.getDienst(), abonnementList.get(0).getDienst());
+//    }
+//
+//    @Test
+//    public void testUpdateAbonnementSoortEnStatus() throws Exception {
+//        IAbonnee abonnee = new Abonnee(
+//                "Sjaak",
+//                "van de Berg",
+//                "sjaak.vdberg@live.nl",
+//                1
+//        );
+//
+//       IDienst dienst = new Dienst(
+//                "Vodafone",
+//                "Mobiel 100",
+//                "Mobiele telefonie met 100 minuten, SMS of GB",
+//                5,
+//                25,
+//                45,
+//                false,
+//                false
+//        );
+////        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
+////        dao.updateAbonnementSoort(AbonnementSoort.JAAR, abonnee, dienst);
+////        dao.getUpdateAbonnementStatus(AbonnementStatus.PROEF, abonnee, dienst);
+//    }
+//
+//    @Test
+//    public void testUpdateIsVerdubbeld() throws Exception {
+//        IAbonnee abonnee = new Abonnee(
+//                "Sjaak",
+//                "van de Berg",
+//                "sjaak.vdberg@live.nl",
+//                1
+//        );
+//
+//        IDienst dienst = new Dienst(
+//                "Vodafone",
+//                "Mobiel 100",
+//                "Mobiele telefonie met 100 minuten, SMS of GB",
+//                5,
+//                25,
+//                45,
+//                false,
+//                false
+//        );
+////        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
+////        dao.updateIsVerdubbeld(true, abonnee, dienst);
+//    }
+    @Test
+    public void testGetAllAbonnementenRealDB() throws Exception {
+        AbonnementDAOMySQL dao = new AbonnementDAOMySQL();
+        System.out.print("-----------Hiero-----------");
+        abonnementList = dao.getAllAbonnementen();
+
+    }
 }

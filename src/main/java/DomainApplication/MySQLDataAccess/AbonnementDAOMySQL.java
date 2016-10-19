@@ -144,6 +144,31 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     }
 
     @Override
+    public List<IAbonnement> getAbonnementTimesShared(IAbonnee abonnee, IDienst dienst) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+        List<IAbonnement> mijnAbonnementen;
+
+        try {
+            ps = helper.getConnection().prepareStatement("SELECT abonnement.* FROM abonnement INNER JOIN gedeeldeabonnementen ON abonnement.abonneeId = gedeeldeabonnementen.abonneeId WHERE abonnement.abonneeId = ?");
+            ps.setInt(1, abonnee.getAbonneeId());
+            mijnAbonnementen = convertResultSet(helper.executeQuery(ps));
+            return mijnAbonnementen;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst) {
+
+    }
+
+    @Override
     public AbonnementSoort getEnumSoort(String soort) {
         switch (soort) {
             case "MAAND":
