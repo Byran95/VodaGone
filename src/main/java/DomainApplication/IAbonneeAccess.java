@@ -11,8 +11,7 @@ public interface IAbonneeAccess {
     List<IAbonnee> getAllAbonnees();
 
     IAbonnee findAbonneeMetEmail(String email);
-
-    IAbonnee findAbonneeMetId(int id);
+    IAbonnee findAbonneeById( int  findId );
 
     void createAbonnee(String naam, String achternaam, String emailadres);
 

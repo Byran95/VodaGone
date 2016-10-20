@@ -65,9 +65,11 @@ public class AbonneeDAOMySQL extends MySQLDataAccessObject implements IAbonneeAc
         try {
             ps = helper.getConnection().prepareStatement("SELECT * FROM abonnee WHERE emailadres = ?");
             ps.setString(1, email);
-            abonnee = convertResultSet(helper.executeQuery(ps)).get(0);
-            return abonnee;
-
+            List<IAbonnee> results = convertResultSet(helper.executeQuery(ps));
+            if ( 0 < results.size() ) {
+                return results.get(0);
+            }
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoDatabaseConnectionException e) {
@@ -77,17 +79,19 @@ public class AbonneeDAOMySQL extends MySQLDataAccessObject implements IAbonneeAc
     }
 
     @Override
-    public IAbonnee findAbonneeMetId(int id) {
+    public IAbonnee findAbonneeById(int findId) {
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
         IAbonnee abonnee;
 
         try {
             ps = helper.getConnection().prepareStatement("SELECT * FROM abonnee WHERE abonneeId = ?");
-            ps.setInt(1, id);
-            abonnee = convertResultSet(helper.executeQuery(ps)).get(0);
-            return abonnee;
-
+            ps.setInt(1, findId);
+            List<IAbonnee> results = convertResultSet(helper.executeQuery(ps));
+            if ( 0 < results.size() ) {
+                return results.get(0);
+            }
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoDatabaseConnectionException e) {

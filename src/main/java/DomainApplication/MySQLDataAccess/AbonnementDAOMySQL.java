@@ -40,7 +40,7 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
         try {
             while (resultSet.next()) {
                 IAbonnement abonnement = new Abonnement(
-                resultSet.getInt("abonneeId"),
+                        resultSet.getInt("abonneeId"),
                         resultSet.getString("startDatum"),
                         resultSet.getBoolean("verdubbeld"),
                         getEnumSoort(resultSet.getString("abonnementSoort")),
@@ -153,7 +153,7 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
         PreparedStatement ps;
 
         try {
-            ps = helper.getConnection().prepareStatement("INSERT INTO table_name (abonneeId, bedrijf, naam, abonnementStatus, abonnementSoort, verdubbeld)\n" +
+            ps = helper.getConnection().prepareStatement("INSERT INTO abonnement (abonneeId, bedrijf, naam, abonnementStatus, abonnementSoort, verdubbeld)\n" +
                     "VALUES (?, ? ,?, ?, ?, ?);");
             ps.setInt(1, abonnement.getAbonneeId());
             ps.setString(2, abonnement.getDienst().getBedrijf());
@@ -236,7 +236,18 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
 
     @Override
     public void shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst) {
-
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = helper.getConnection().prepareStatement( "INSERT INTO gedeeldeabonnementen (abonneeId,bedrijf,naam,delendeAbonnee) VALUES (?,?,?,?)");
+            preparedStatement.setInt( 1 , abonnee.getAbonneeId() );
+            preparedStatement.setString( 2 , dienst.getBedrijf() );
+            preparedStatement.setString( 3 , dienst.getNaam() );
+            preparedStatement.setInt( 4 , delendeAbonnee.getAbonneeId() );
+            helper.executeQuery( preparedStatement );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

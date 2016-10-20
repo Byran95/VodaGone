@@ -9,8 +9,9 @@
 <html>
 <head>
     <title>Service zu probieren</title>
+    <link rel="stylesheet" href="style/css/bootstrap.min.css">
 </head>
 <body>
-    <p>Jawhol</p>
+<p>Jawhol</p>
 </body>
 </html>

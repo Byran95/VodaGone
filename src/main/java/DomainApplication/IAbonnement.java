@@ -1,7 +1,6 @@
 package DomainApplication;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Anders Egberts on 12/10/2016.
@@ -16,7 +15,7 @@ public interface IAbonnement {
 
     void zegOp();
 
-    float berekendMaandPrijs();
+    float getMaandPrijs();
 
     int getAbonneeId();
 
@@ -24,13 +23,25 @@ public interface IAbonnement {
 
     boolean getVerdubbeld();
 
-    ArrayList getGedeeldMet();
+    List<IAbonnee> getGedeeldMet();
 
     AbonnementSoort getSoort();
 
     AbonnementStatus getStatus();
 
     IDienst getDienst();
+
+    void setAbonneeId(int abonneeId);
+
+    void setStartDatum(String startDatum);
+
+    void setVerdubbeld(String verdubbeld);
+
+    void setGedeeldMet(String gedeeldMet);
+
+    void setSoort(int soort);
+
+    void setStatus(int status);
 
     void setDienst(IDienst dienst);
 }

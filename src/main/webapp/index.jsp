@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Anders Egberts
@@ -7,14 +8,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>Oh Hai</title>
-  </head>
-  <body>
-    <p>Ur mom is uglee</p>
-    <ul>
-      <li><a href="/abonnementen" >Abonnementen</a></li>
-      <li><a href="/TryService.jsp" >Dienst uitproberen</a></li>
-    </ul>
-  </body>
+<head>
+  <title>Oh Hai</title>
+  <link rel="stylesheet" href="style/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style/css/dimensionsHelper.css">
+</head>
+<body>
+<c:import url="navbar.jsp"></c:import>
+<div class="container">
+  <h1>Welkom!</h1>
+  <p>Log in om gebruik te maken van de services van Vodafone en Ziggo!</p>
+</div>
+</body>
 </html>

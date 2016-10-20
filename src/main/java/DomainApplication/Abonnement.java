@@ -1,6 +1,7 @@
 package DomainApplication;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Anders Egberts on 12/10/2016.
@@ -43,7 +44,7 @@ public class Abonnement implements IAbonnement {
     }
 
     @Override
-    public float berekendMaandPrijs() {
+    public float getMaandPrijs() {
         return 0;
     }
 
@@ -64,8 +65,8 @@ public class Abonnement implements IAbonnement {
     }
 
     @Override
-    public ArrayList getGedeeldMet() {
-        return null;
+    public List<IAbonnee> getGedeeldMet() {
+        return new ArrayList();
     }
 
     @Override
@@ -84,7 +85,37 @@ public class Abonnement implements IAbonnement {
     }
 
     @Override
+    public void setAbonneeId(int abonneeId) {
+
+    }
+
+    @Override
+    public void setStartDatum(String startDatum) {
+
+    }
+
+    @Override
+    public void setVerdubbeld(String verdubbeld) {
+
+    }
+
+    @Override
+    public void setGedeeldMet(String gedeeldMet) {
+
+    }
+
+    @Override
+    public void setSoort(int soort) {
+
+    }
+
+    @Override
+    public void setStatus(int status) {
+
+    }
+
+    @Override
     public void setDienst(IDienst dienst) {
-        this.dienst=dienst;
+        this.dienst = dienst;
     }
 }

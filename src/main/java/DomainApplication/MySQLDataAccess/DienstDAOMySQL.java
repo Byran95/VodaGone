@@ -46,7 +46,7 @@ public class DienstDAOMySQL extends MySQLDataAccessObject implements IDienstAcce
         ResultSet resultSet = null;
 
         try {
-            resultSet = helper.executeQuery( "SELECT * FROM dienst WHERE naam LIKE %?%" , new String[]{searchTerm});
+            resultSet = helper.executeQuery( "SELECT * FROM dienst WHERE naam LIKE ?" , new String[]{"%" + searchTerm + "%"});
         } catch (NoDatabaseConnectionException e) {
             e.printStackTrace();
         }
@@ -60,9 +60,44 @@ public class DienstDAOMySQL extends MySQLDataAccessObject implements IDienstAcce
         return convertedList;
     }
 
+    /**
+     * Searches the db for a service matching the companyName and serviceName (These params together for a unique key).
+     *
+     * @param companyName The company that provides the service.
+     * @param serviceName The name of the service.
+     * @return a IDienst matching the search-params if succesful or null on error.
+     */
+    @Override
+    public IDienst getDienstByCompanyAndName(String companyName, String serviceName) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+
+        ResultSet resultSet = null;
+
+        try {
+            resultSet = helper.executeQuery( "SELECT * FROM dienst WHERE bedrijf = ? AND naam = ?" , new String[]{companyName , serviceName});
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+        helper.close();
+        List<IDienst> convertedList = convertResultSet( resultSet );
+        if ( 0 < convertedList.size() ) {
+            return  convertedList.get( 0 );
+        }
+
+        try {
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private List<IDienst> convertResultSet( ResultSet resultSet ) {
         List<IDienst> results = new ArrayList<>();
 
+        if ( null == resultSet ) {
+            return results;
+        }
         try {
             while (resultSet.next()) {
                 Dienst dienst = new Dienst(
