@@ -17,7 +17,22 @@
     <c:import url="navbar.jsp"></c:import>
     <div class="container">
         <h1>Diensten:</h1>
-        <p>Probeer gratis een van de onderstaande diensten:</p>
+        <div class="col-lg-12" >
+            <div class="col-md-8">
+                <p>Probeer gratis een van de onderstaande diensten:</p>
+            </div>
+            <div class="col-md-4">
+                <form align="right" action="dienstUitproberen" method="get" width="128">
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" name="searchTerm" />
+                    </div>
+                    <div class="col-md-4">
+                        <input class="btn btn-success btn-block" type="submit" value="Zoeken" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr/>
         <table class="table table-striped">
             <tr>
                 <th>Naam</th>

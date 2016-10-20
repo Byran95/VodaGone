@@ -195,16 +195,19 @@ public class AbonnementDAOMySQLTest {
     public void testAbonneeMetDienst() throws Exception {
         abonnementList = abonnementDAO.getAllAbonnementen();
         expectedAbonnement.setDienst(new Dienst(
-                "Vodafone",
-                "Mobiel 100",
-                "Mobiele telefonie met 100 minuten, SMS of GB",
-                5,
+                "Ziggo",
+                "Mobiel 250",
+                "Mobiele telefonie met 250 minuten, SMS of GB",
+                20,
                 25,
                 45,
                 false,
                 false
         ));
-        assertEquals(expectedAbonnement.getDienst(), abonnementList.get(0).getDienst());
+        assertEquals(expectedAbonnement.getDienst().getBedrijf(), abonnementList.get(0).getDienst().getBedrijf());
+        assertEquals(expectedAbonnement.getDienst().getNaam(), abonnementList.get(0).getDienst().getNaam());
+        assertEquals(expectedAbonnement.getDienst().getBeschrijving(), abonnementList.get(0).getDienst().getBeschrijving());
+        assertEquals(expectedAbonnement.getDienst().getMaandPrijs(), abonnementList.get(0).getDienst().getMaandPrijs());
     }
 
     @Test

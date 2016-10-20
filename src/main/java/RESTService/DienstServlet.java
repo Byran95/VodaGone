@@ -26,7 +26,8 @@ public class DienstServlet extends HttpServlet {
             return;
         }
         System.out.println( loggedInUser );
-        String searchTerm = req.getParameter( "searchTerm");
+        String searchTerm = req.getParameter( "searchTerm" );
+        System.out.println( "searchTerm: " + searchTerm );
         if ( null == searchTerm ) {
             req.setAttribute("diensten", dienstService.getAll());
         } else {

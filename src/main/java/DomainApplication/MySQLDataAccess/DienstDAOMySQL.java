@@ -46,7 +46,7 @@ public class DienstDAOMySQL extends MySQLDataAccessObject implements IDienstAcce
         ResultSet resultSet = null;
 
         try {
-            resultSet = helper.executeQuery( "SELECT * FROM dienst WHERE naam LIKE %?%" , new String[]{searchTerm});
+            resultSet = helper.executeQuery( "SELECT * FROM dienst WHERE naam LIKE ?" , new String[]{"%" + searchTerm + "%"});
         } catch (NoDatabaseConnectionException e) {
             e.printStackTrace();
         }
