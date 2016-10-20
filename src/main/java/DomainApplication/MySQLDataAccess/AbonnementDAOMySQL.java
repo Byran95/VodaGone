@@ -240,10 +240,10 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
         PreparedStatement preparedStatement;
         try {
             preparedStatement = helper.getConnection().prepareStatement( "INSERT INTO gedeeldeabonnementen (abonneeId,bedrijf,naam,delendeAbonnee) VALUES (?,?,?,?)");
-            preparedStatement.setInt( 1 , abonnee.getAbonneeId() );
+            preparedStatement.setInt( 1 , delendeAbonnee.getAbonneeId() );
             preparedStatement.setString( 2 , dienst.getBedrijf() );
             preparedStatement.setString( 3 , dienst.getNaam() );
-            preparedStatement.setInt( 4 , delendeAbonnee.getAbonneeId() );
+            preparedStatement.setInt( 4 , abonnee.getAbonneeId() );
             helper.executeQuery( preparedStatement );
         } catch (Exception e) {
             e.printStackTrace();
