@@ -24,7 +24,7 @@
             <table class="table" >
                 <tr><td>Email adress</td></tr>
                 <tr><td><input class="form-control" type="text" name="email" /></td></tr>
-                <tr><td><input class="btn btn-success btn-block" type="submit" value="Click" /></td></tr>
+                <tr><td><input class="btn btn-success btn-block" type="submit" value="Login" /></td></tr>
             </table>
         </form>
         <p>Nog geen account? <a href="/register" >Registreer!</a></p>

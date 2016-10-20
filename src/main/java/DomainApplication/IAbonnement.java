@@ -1,7 +1,6 @@
 package DomainApplication;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Anders Egberts on 12/10/2016.
@@ -24,7 +23,7 @@ public interface IAbonnement {
 
     boolean getVerdubbeld();
 
-    ArrayList getGedeeldMet();
+    List<IAbonnee> getGedeeldMet();
 
     AbonnementSoort getSoort();
 

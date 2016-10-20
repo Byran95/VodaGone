@@ -6,8 +6,6 @@ import Util.ServerLogger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by Bryan van Elden on 12/10/2016.
@@ -38,6 +36,7 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     private List<IAbonnement> convertResultSet( ResultSet resultSet ) {
         List<IAbonnement> results = new ArrayList<>();
 
+
         try {
             while (resultSet.next()) {
                 IAbonnement abonnement = new Abonnement(
@@ -55,9 +54,8 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
                         resultSet.getInt("halfJaarPrijs"),
                         resultSet.getInt("jaarPrijs"),
                         resultSet.getBoolean("verdubbelbaar"),
-                        resultSet.getBoolean("deelbaar"))
-                );
-                System.out.println( "ab.dienst: " + abonnement.getDienst() );
+                        resultSet.getBoolean("deelbaar")
+                ));
                 results.add(abonnement);
             }
             System.out.println("Size: " + results.size());
@@ -90,16 +88,38 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     }
 
     @Override
-    public void updateAbonnementSoort(AbonnementSoort soort, IAbonnee abonnee, IDienst dienst) {
+    public IAbonnement findAbonnement(int abonneeId, String bedrijf, String naam){
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+        List<IAbonnement> mijnAbonnementen;
+
+        try {
+            ps = helper.getConnection().prepareStatement("SELECT * FROM abonnement INNER JOIN dienst ON abonnement.bedrijf = dienst.bedrijf AND abonnement.naam = dienst.naam WHERE abonnement.abonneeId = ? AND abonnement.bedrijf = ? AND abonnement.naam = ?");
+            ps.setInt(1, abonneeId);
+            ps.setString(2, bedrijf);
+            ps.setString(3, naam);
+            mijnAbonnementen = convertResultSet(helper.executeQuery(ps));
+            return mijnAbonnementen.get(0);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateAbonnementSoort(AbonnementSoort soort, IAbonnement abonnement) {
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
 
         try {
             ps = helper.getConnection().prepareStatement("UPDATE abonnement SET abonnementSoort=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
             ps.setString(1, soort.toString());
-            ps.setInt(2, abonnee.getAbonneeId());
-            ps.setString(3, dienst.getBedrijf());
-            ps.setString(4, dienst.getNaam());
+            ps.setInt(2, abonnement.getAbonneeId());
+            ps.setString(3, abonnement.getDienst().getBedrijf());
+            ps.setString(4, abonnement.getDienst().getNaam());
             helper.executeQuery(ps);
         } catch (SQLException e){
             e.printStackTrace();
@@ -109,35 +129,16 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     }
 
     @Override
-    public void updateAbonnementStatus(AbonnementStatus status, IAbonnee abonnee, IDienst dienst) {
+    public void updateAbonnementStatus(AbonnementStatus status, IAbonnement abonnement) {
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
 
         try {
             ps = helper.getConnection().prepareStatement("UPDATE abonnement SET abonnementStatus=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
             ps.setString(1, status.toString());
-            ps.setInt(2, abonnee.getAbonneeId());
-            ps.setString(3, dienst.getBedrijf());
-            ps.setString(4, dienst.getNaam());
-            helper.executeQuery(ps);
-        } catch (SQLException e){
-            e.printStackTrace();
-        } catch (NoDatabaseConnectionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void updateIsVerdubbeld(boolean isVerdubbeld, IAbonnee abonnee, IDienst dienst) {
-        MySQLDatabaseHelper helper = getDatabaseHelper();
-        PreparedStatement ps;
-
-        try {
-            ps = helper.getConnection().prepareStatement("UPDATE abonnement SET verdubbeld=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
-            ps.setBoolean(1, isVerdubbeld);
-            ps.setInt(2, abonnee.getAbonneeId());
-            ps.setString(3, dienst.getBedrijf());
-            ps.setString(4, dienst.getNaam());
+            ps.setInt(2, abonnement.getAbonneeId());
+            ps.setString(3, abonnement.getDienst().getBedrijf());
+            ps.setString(4, abonnement.getDienst().getNaam());
             helper.executeQuery(ps);
         } catch (SQLException e){
             e.printStackTrace();
@@ -151,21 +152,100 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
 
-        int verdubbeld = booleanToInt(abonnement.getVerdubbeld());
-
         try {
-            ps = helper.getConnection().prepareStatement("INSERT INTO abonnement (abonneeId, bedrijf, naam, abonnementStatus, abonnementSoort, verdubbeld)\n" +
+            ps = helper.getConnection().prepareStatement("INSERT INTO table_name (abonneeId, bedrijf, naam, abonnementStatus, abonnementSoort, verdubbeld)\n" +
                     "VALUES (?, ? ,?, ?, ?, ?);");
             ps.setInt(1, abonnement.getAbonneeId());
             ps.setString(2, abonnement.getDienst().getBedrijf());
             ps.setString(3, abonnement.getDienst().getNaam());
             ps.setString(4, abonnement.getStatus().toString());
             ps.setString(5, abonnement.getSoort().toString());
-            ps.setInt(6, verdubbeld);
+            ps.setBoolean(6, abonnement.getVerdubbeld());
             helper.executeQuery(ps);
         } catch (SQLException e){
             e.printStackTrace();
         } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateIsVerdubbeld(boolean verdubbeld, int abonneeId, String bedrijf, String naam) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+
+        System.out.println("UPDATE abonnement SET verdubbeld=" + verdubbeld + " WHERE abonneeId = " + abonneeId + " AND bedrijf = " + bedrijf + " AND naam = " + naam + "");
+
+        try {
+            ps = helper.getConnection().prepareStatement("UPDATE abonnement SET verdubbeld=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
+            ps.setBoolean(1, verdubbeld);
+            ps.setInt(2, abonneeId);
+            ps.setString(3, bedrijf);
+            ps.setString(4, naam);
+            helper.executeQuery(ps);
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean isAbonnementDelenToegestaan(IAbonnee abonnee, IAbonnement abonnement) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+        int nGedeeld = 0;
+        ResultSet rs = null;
+
+        try {
+            ps = helper.getConnection().prepareStatement(
+                    "SELECT COUNT(*) AS nGedeeld \n" +
+                            "FROM abonnement \n" +
+                            "INNER JOIN gedeeldeabonnementen \n" +
+                            "\tON gedeeldeabonnementen.abonneeId = abonnement.abonneeId\n" +
+                            "    AND gedeeldeabonnementen.bedrijf = abonnement.bedrijf\n" +
+                            "    AND gedeeldeabonnementen.naam = abonnement.naam\n" +
+                            "WHERE abonnement.abonneeId = ? " +
+                            "AND abonnement.bedrijf = ? " +
+                            "AND abonnement.naam = ?");
+            ps.setInt(1, abonnee.getAbonneeId());
+            ps.setString(2, abonnement.getDienst().getBedrijf());
+            ps.setString(3, abonnement.getDienst().getNaam());
+
+            rs = helper.executeQuery(ps);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            while (rs.next()) {
+                nGedeeld = rs.getInt("nGedeeld");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(nGedeeld < 2) {
+            return true;
+        }
+        System.out.println("nGedeeld: " + nGedeeld);
+        return false;
+    }
+
+    @Override
+    public void shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = helper.getConnection().prepareStatement( "INSERT INTO gedeeldeabonnementen (abonneeId,bedrijf,naam,delendeAbonnee) VALUE (?,?,?,?)");
+            preparedStatement.setInt( 1 , abonnee.getAbonneeId() );
+            preparedStatement.setString( 2 , dienst.getBedrijf() );
+            preparedStatement.setString( 3 , dienst.getNaam() );
+            preparedStatement.setInt( 4 , delendeAbonnee.getAbonneeId() );
+            helper.executeQuery( preparedStatement );
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -192,19 +272,5 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
             default:
                 return AbonnementStatus.ACTIEF;
         }
-    }
-
-    public boolean intToBoolean(int bit) {
-        if(bit == 1) {
-            return true;
-        }
-        return false;
-    }
-
-    public int booleanToInt(Boolean bool) {
-        if(bool == true) {
-            return 1;
-        }
-        return 0;
     }
 }

@@ -1,6 +1,7 @@
 package DomainApplication;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Anders Egberts on 12/10/2016.
@@ -60,12 +61,12 @@ public class Abonnement implements IAbonnement {
 
     @Override
     public boolean getVerdubbeld() {
-        return false;
+        return this.verdubbeld;
     }
 
     @Override
-    public ArrayList getGedeeldMet() {
-        return null;
+    public List<IAbonnee> getGedeeldMet() {
+        return new ArrayList();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package RESTService;
 
 import DomainApplication.IAbonnee;
+import DomainApplication.IAbonnement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,17 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Anders Egberts on 14/10/2016.
+ * Created by Anders Egberts on 20/10/2016.
  */
 @WebServlet(
-        urlPatterns = { "/cancelSubscription" }
+    value = "/shareService"
 )
-public class DienstOpzeggenServlet extends HttpServlet {
-    AbonnementService abonnementService = new AbonnementService();
-    AbonneeService abonneeService = new AbonneeService();
-
+public class DienstDelenServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAbonnee loggedInUser = (IAbonnee) req.getSession().getAttribute( "loggedInUser" );
         if ( null == loggedInUser ) {
             req.getRequestDispatcher( "/login.jsp" ).forward( req , resp );
@@ -30,12 +28,17 @@ public class DienstOpzeggenServlet extends HttpServlet {
         int abonneeId = loggedInUser.getAbonneeId();
         String bedrijf = req.getParameter("bedrijf");
         String naam = req.getParameter("naam");
+        int targetAbonneeId = Integer.parseInt( req.getParameter( "targetUserId" ) );
 
         if ( null == bedrijf || null == naam ) {
             return;
         }
 
-        abonnementService.cancelSubscription(abonneeId, bedrijf, naam);
-        req.getRequestDispatcher( "/abonnementen" ).forward( req , resp );
+        AbonnementService abonnementService = new AbonnementService();
+        IAbonnement abonnementToShare = abonnementService.getByOwnerCompanyandName( abonneeId , bedrijf , naam );
+        IAbonnee shareRecipient = new AbonneeService().getAbonneeById( targetAbonneeId );
+        abonnementService.shareWith( abonnementToShare , shareRecipient );
+
+        resp.getWriter().write( "Service shared!!!111one");
     }
 }

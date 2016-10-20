@@ -25,6 +25,7 @@
                     <th>Aanbieder</th>
                     <th>Beschrijving</th>
                     <th>Status</th>
+                    <th>Start datum</th>
                     <th>Actions</th>
                 </tr>
                 <c:forEach items="${requestScope.abonnementen}" var="abonnement">
@@ -33,11 +34,12 @@
                         <td>${abonnement.dienst.bedrijf}</td>
                         <td>${abonnement.dienst.beschrijving}</td>
                         <td>${abonnement.status}</td>
-                        <td><a href="/shareSubscription" >Share</a> - <a href="/upgradeSubscription" >Upgrade</a> - <a href="/cancelSubscription" >Cancel</a></td>
+                        <td>${abonnement.startDatum}</td>
+                        <td><a href="/startSharingService?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Share</a> - <a href="/upgradeSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Upgrade</a> - <a href="/cancelSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Cancel</a></td>
                     </tr>
                 </c:forEach>
                 <tr>
-                    <td rowspan="5"><a href="/dienstUitproberen" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Nieuw abonnement toevoegen.</a></td>
+                    <td colspan="6"><a href="/dienstUitproberen" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Nieuw abonnement toevoegen.</a></td>
                 </tr>
             </table>
         </c:if>
