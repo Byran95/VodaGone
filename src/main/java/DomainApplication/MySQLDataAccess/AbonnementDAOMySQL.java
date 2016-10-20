@@ -36,12 +36,13 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     private List<IAbonnement> convertResultSet( ResultSet resultSet ) {
         List<IAbonnement> results = new ArrayList<>();
 
+
         try {
             while (resultSet.next()) {
                 IAbonnement abonnement = new Abonnement(
-                        resultSet.getInt("abonneeId"),
+                resultSet.getInt("abonneeId"),
                         resultSet.getString("startDatum"),
-                        resultSet.getBoolean("verdubbeld"),
+                        intToBoolean(resultSet.getInt("verdubbeld")),
                         getEnumSoort(resultSet.getString("abonnementSoort")),
                         getEnumStatus(resultSet.getString("abonnementStatus"))
                 );
@@ -52,10 +53,10 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
                         resultSet.getInt("maandPrijs"),
                         resultSet.getInt("halfJaarPrijs"),
                         resultSet.getInt("jaarPrijs"),
-                        resultSet.getBoolean("verdubbelbaar"),
-                        resultSet.getBoolean("deelbaar"))
-                );
-                System.out.println( "ab.dienst: " + abonnement.getDienst() );
+                        intToBoolean(resultSet.getInt("verdubbelbaar")),
+                        intToBoolean(resultSet.getInt("deelbaar"))
+                ));
+                System.out.println( "ab.verdubbeld: " + intToBoolean(resultSet.getInt("verdubbeld")) );
                 results.add(abonnement);
             }
             System.out.println("Size: " + results.size());
@@ -126,16 +127,19 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     }
 
     @Override
-    public void updateIsVerdubbeld(boolean isVerdubbeld, IAbonnee abonnee, IDienst dienst) {
+    public void updateIsVerdubbeld(boolean verdubbeld, int abonneeId, String bedrijf, String naam) {
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
+        int verdubbeldBit = booleanToInt(verdubbeld);
+
+        System.out.println("UPDATE abonnement SET verdubbeld=" + verdubbeld + " WHERE abonneeId = " + abonneeId + " AND bedrijf = " + bedrijf + " AND naam = " + naam + "");
 
         try {
             ps = helper.getConnection().prepareStatement("UPDATE abonnement SET verdubbeld=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
-            ps.setBoolean(1, isVerdubbeld);
-            ps.setInt(2, abonnee.getAbonneeId());
-            ps.setString(3, dienst.getBedrijf());
-            ps.setString(4, dienst.getNaam());
+            ps.setInt(1, verdubbeldBit);
+            ps.setInt(2, abonneeId);
+            ps.setString(3, bedrijf);
+            ps.setString(4, naam);
             helper.executeQuery(ps);
         } catch (SQLException e){
             e.printStackTrace();
@@ -191,6 +195,20 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     @Override
     public void shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst) {
 
+    }
+
+    public boolean intToBoolean(int bit) {
+        if(bit == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public int booleanToInt(Boolean bool) {
+        if(bool == true) {
+            return 1;
+        }
+        return 0;
     }
 
     @Override

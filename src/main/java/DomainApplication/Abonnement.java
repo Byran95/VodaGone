@@ -60,7 +60,7 @@ public class Abonnement implements IAbonnement {
 
     @Override
     public boolean getVerdubbeld() {
-        return false;
+        return this.verdubbeld;
     }
 
     @Override

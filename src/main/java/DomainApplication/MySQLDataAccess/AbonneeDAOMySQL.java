@@ -77,6 +77,26 @@ public class AbonneeDAOMySQL extends MySQLDataAccessObject implements IAbonneeAc
     }
 
     @Override
+    public IAbonnee findAbonneeMetId(int id) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+        IAbonnee abonnee;
+
+        try {
+            ps = helper.getConnection().prepareStatement("SELECT * FROM abonnee WHERE abonneeId = ?");
+            ps.setInt(1, id);
+            abonnee = convertResultSet(helper.executeQuery(ps)).get(0);
+            return abonnee;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void createAbonnee(String naam, String achternaam, String emailadres){
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;

@@ -15,7 +15,7 @@ public interface IAbonnementAccess {
 
     void updateAbonnementStatus(AbonnementStatus status, IAbonnee abonnee, IDienst dienst);
 
-    void updateIsVerdubbeld(boolean isVerdubbeld, IAbonnee abonnee, IDienst dienst);
+    void updateIsVerdubbeld(boolean isVerdubbeld, int abonneeId, String bedrijf, String naam);
 
     boolean isAbonnementDelenToegestaan(IAbonnee abonnee, IAbonnement abonnement);
 
