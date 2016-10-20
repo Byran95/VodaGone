@@ -127,6 +127,31 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     }
 
     @Override
+    public void createAbonnement(IAbonnement abonnement) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+
+        int verdubbeld = booleanToInt(abonnement.getVerdubbeld());
+
+        try {
+            ps = helper.getConnection().prepareStatement("INSERT INTO table_name (abonneeId, bedrijf, naam, abonnementStatus, abonnementSoort, startDatum, verdubbeld)\n" +
+                    "VALUES (?, ? ,?, ?, ?, ?, ?);");
+            ps.setInt(1, abonnement.getAbonneeId());
+            ps.setString(1, abonnement.getDienst().getBedrijf());
+            ps.setString(1, abonnement.getDienst().getNaam());
+            ps.setString(1, abonnement.getStatus().toString());
+            ps.setString(1, abonnement.getSoort().toString());
+            ps.setString(1, abonnement.getStartDatum());
+            ps.setInt(1, verdubbeld);
+            helper.executeQuery(ps);
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void updateIsVerdubbeld(boolean verdubbeld, int abonneeId, String bedrijf, String naam) {
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
