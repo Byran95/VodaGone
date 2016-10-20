@@ -204,7 +204,6 @@ public class AbonnementDAOMySQLTest {
                 false,
                 false
         ));
-
         assertEquals(expectedAbonnement.getDienst().getBedrijf(), abonnementList.get(1).getDienst().getBedrijf());
         assertEquals(expectedAbonnement.getDienst().getNaam(), abonnementList.get(1).getDienst().getNaam());
         assertEquals(expectedAbonnement.getDienst().getBeschrijving(), abonnementList.get(1).getDienst().getBeschrijving());

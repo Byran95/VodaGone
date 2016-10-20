@@ -3,6 +3,6 @@
 <properties>
 <entry key="TestProperty">TestValue</entry>
 <entry key="Property2">Value2</entry>
-<entry key="DatabaseType">NoSQL</entry>
+<entry key="DatabaseType">MySQL</entry>
 <entry key="Property1">Value1</entry>
 </properties>

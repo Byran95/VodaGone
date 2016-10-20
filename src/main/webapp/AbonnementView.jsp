@@ -17,15 +17,27 @@
 <p>${requestScope.abonnementen}</p>
 <table>
     <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Actions</th>
+        <th>abonneeId</th>
+        <th>bedrijf</th>
+        <th>naam</th>
+        <th>status</th>
+        <th>soort</th>
+        <th>start datum</th>
+        <th>verdubbeld</th>
     </tr>
     <c:forEach items="${requestScope.abonnementen}" var="abonnement">
         <tr>
-            <td>Fag </td>
-            <td>Placeholder</td>
-            <td><a href="/shareSubscription" >Share</a> - <a href="/upgradeSubscription" >Upgrade</a> - <a href="/cancelSubscription" >Cancel</a></td>
+            <td>${abonnement.abonneeId}</td>
+            <td>${abonnement.dienst.bedrijf}</td>
+            <td>${abonnement.dienst.naam}</td>
+            <td>${abonnement.status}</td>
+            <td>${abonnement.soort}</td>
+            <td>${abonnement.startDatum}</td>
+            <td>${abonnement.verdubbeld}</td>
+            <td><a href="/shareSubscription" >Share</a> -
+                <a href="/upgradeSubscription" >Upgrade</a> -
+                <a href="/cancelSubscription" >Cancel</a>
+            </td>
         </tr>
     </c:forEach>
 </table>
