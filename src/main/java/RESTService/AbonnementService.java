@@ -24,12 +24,15 @@ public class AbonnementService {
 
     public void updateVerdubbeld(boolean verdubbeld, int abonneeId, String bedrijf, String naam) {
 
-        System.out.println("Naam: " + naam + "\n" +
-            "AbonneeId: " + abonneeId + "\n" +
-            "verdubbeld: " + verdubbeld + "\n" +
-            "Bedrijf: " + bedrijf);
-
         access = AbonnementDAOFactory.getAccessObject();
         access.updateIsVerdubbeld(verdubbeld, abonneeId, bedrijf, naam);
+    }
+
+    public void cancelSubscription(int abonneeId, String bedrijf, String naam) {
+        access = AbonnementDAOFactory.getAccessObject();
+
+        IAbonnement abonnement = access.findAbonnement(abonneeId, bedrijf, naam);
+
+        access.updateAbonnementStatus(AbonnementStatus.OPGEZEGD, abonnement);
     }
 }

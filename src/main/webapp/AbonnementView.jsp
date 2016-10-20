@@ -36,7 +36,7 @@
             <td>${abonnement.verdubbeld}</td>
             <td><a href="/shareSubscription" >Share</a> -
                 <a href="/upgradeSubscription?verdubbeld=${abonnement.verdubbeld}&abonneeId=${abonnement.abonneeId}&bedrijf=${abonnement.dienst.bedrijf}&naam=${abonnement.dienst.naam}">Upgrade</a> -
-                <a href="/cancelSubscription" >Cancel</a>
+                <a href="/cancelSubscription?abonneeId=${abonnement.abonneeId}&bedrijf=${abonnement.dienst.bedrijf}&naam=${abonnement.dienst.naam}" >Cancel</a>
             </td>
         </tr>
     </c:forEach>
