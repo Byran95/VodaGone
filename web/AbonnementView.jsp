@@ -41,7 +41,12 @@
                         <td>${abonnement.dienst.beschrijving}</td>
                         <td>${abonnement.status}</td>
                         <td>${abonnement.startDatum}</td>
-                        <td><a href="/startSharingService?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Share</a> - <a href="/upgradeSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Upgrade</a> - <a href="/cancelSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Cancel</a></td>
+                        <td>
+                            <c:if test="${abonnement.deelbaar}">
+                                <a href="/startSharingService?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Share</a> -
+                            </c:if>
+                            <a href="/upgradeSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Upgrade</a> - <a href="/cancelSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Cancel</a>
+                        </td>
                     </tr>
                 </c:forEach>
                 <tr>

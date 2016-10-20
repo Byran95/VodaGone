@@ -25,6 +25,8 @@ public interface IAbonnement {
 
     List<IAbonnee> getGedeeldMet();
 
+    boolean isDeelbaar();
+
     AbonnementSoort getSoort();
 
     AbonnementStatus getStatus();

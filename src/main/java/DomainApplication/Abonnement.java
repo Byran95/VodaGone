@@ -70,6 +70,11 @@ public class Abonnement implements IAbonnement {
     }
 
     @Override
+    public boolean isDeelbaar() {
+        return true;
+    }
+
+    @Override
     public AbonnementSoort getSoort() {
         return this.soort;
     }

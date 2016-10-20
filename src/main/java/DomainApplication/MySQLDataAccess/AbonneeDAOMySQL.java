@@ -44,8 +44,8 @@ public class AbonneeDAOMySQL extends MySQLDataAccessObject implements IAbonneeAc
 
         try {
             String sql = "SELECT abonnee.* FROM abonnee , gedeeldeabonnementen WHERE" +
-                    " gedeeldeabonnementen.delendeAbonnee = ? AND gedeeldeabonnementen.bedrijf = ? AND" +
-                    " gedeeldeabonnementen.naam = ? AND abonnee.abonneeId = gedeeldeabonnementen.abonneeId";
+                    " gedeeldeabonnementen.abonneeId = ? AND gedeeldeabonnementen.bedrijf = ? AND" +
+                    " gedeeldeabonnementen.naam = ? AND abonnee.abonneeId = gedeeldeabonnementen.delendeAbonnee";
             PreparedStatement preparedStatement = helper.getConnection().prepareStatement( sql );
             preparedStatement.setInt( 1 , sharedAbonnement.getAbonneeId() );
             preparedStatement.setString( 2 , sharedAbonnement.getDienst().getBedrijf() );
