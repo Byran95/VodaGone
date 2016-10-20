@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Anders Egberts
@@ -12,18 +13,27 @@
 </head>
 <body>
     <h1>Abonnementen:</h1>
-    <h2>${requestScope.swagTest}</h2>
+    <p>Alles:</p>
+    <p>${requestScope.abonnementen}</p>
     <table>
     <tr>
         <th>Title</th>
         <th>Description</th>
         <th>Actions</th>
+        <th>Fields</th>
     </tr>
     <c:forEach items="${requestScope.abonnementen}" var="abonnement">
         <tr>
-            <td>${abonnement.naam}</td>
+            <td>${abonnement}</td>
             <td>Placeholder</td>
             <td><a href="/shareSubscription" >Share</a> - <a href="/upgradeSubscription" >Upgrade</a> - <a href="/cancelSubscription" >Cancel</a></td>
+            <td>
+                <ul>
+                    <c:forEach var="field" items="${abonnement['class'].declaredFields}">
+                        <c:catch><li><span>${field.name}: </span>${abonnement[field.name]}</li></c:catch>
+                    </c:forEach>
+                </ul>
+            </td>
         </tr>
     </c:forEach>
     </table>
