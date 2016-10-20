@@ -3,6 +3,7 @@ package DomainApplication.MySQLDataAccess;
 import DomainApplication.*;
 import Util.ServerLogger;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -235,7 +236,7 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     }
 
     @Override
-    public void shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst) {
+    public boolean shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst) {
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement preparedStatement = null;
         try {
@@ -244,10 +245,12 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
             preparedStatement.setString( 2 , dienst.getBedrijf() );
             preparedStatement.setString( 3 , dienst.getNaam() );
             preparedStatement.setInt( 4 , delendeAbonnee.getAbonneeId() );
-            helper.executeQuery( preparedStatement );
+            ResultSet resultSet = helper.executeQuery( preparedStatement );
+            return ( null != resultSet );
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override

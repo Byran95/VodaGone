@@ -37,8 +37,13 @@ public class DienstDelenServlet extends HttpServlet {
         AbonnementService abonnementService = new AbonnementService();
         IAbonnement abonnementToShare = abonnementService.getByOwnerCompanyandName( abonneeId , bedrijf , naam );
         IAbonnee shareRecipient = new AbonneeService().getAbonneeById( targetAbonneeId );
-        abonnementService.shareWith( abonnementToShare , shareRecipient );
+        Boolean bSuccessful = abonnementService.shareWith( abonnementToShare , shareRecipient );
 
-        resp.getWriter().write( "Service shared!!!111one");
+        if ( !bSuccessful ) {
+            req.setAttribute( "errorMsg" , "Het is niet gelukt om het abonnement te delen." );
+        } else {
+            req.setAttribute( "successMsg" , "Het abonnement is gedeeld!" );
+        }
+        req.getRequestDispatcher( "/abonnementen" ).forward( req , resp );
     }
 }

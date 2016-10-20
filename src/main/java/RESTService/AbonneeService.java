@@ -2,6 +2,7 @@ package RESTService;
 
 import DomainApplication.AbonneeDAOFactory;
 import DomainApplication.IAbonnee;
+import DomainApplication.IAbonnement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,10 @@ public class AbonneeService {
 
     public IAbonnee getAbonneeById( int findId ) {
         return AbonneeDAOFactory.getAccessObject().findAbonneeById( findId );
+    }
+
+    public List<IAbonnee> getAbonneesThatAreSharing( IAbonnement sharedAbonnement ) {
+        return AbonneeDAOFactory.getAccessObject().getAbonneesThatAreSharingAbonnement( sharedAbonnement );
     }
 
     public List<IAbonnee> getAllWithFilter( List<IAbonnee> filterAbonnees ) {

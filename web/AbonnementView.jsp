@@ -18,6 +18,12 @@
     <c:import url="navbar.jsp"></c:import>
     <div class="container">
         <h1>Abonnementen:</h1>
+        <c:if test="${not empty requestScope.errorMsg}">
+            <p class="alert alert-danger">${requestScope.errorMsg}</p>
+        </c:if>
+        <c:if test="${not empty requestScope.successMsg}">
+            <p class="alert alert-success">${requestScope.successMsg}</p>
+        </c:if>
         <c:if test="${fn:length(requestScope.abonnementen) gt 0}">
             <table class="table table-striped">
                 <tr>

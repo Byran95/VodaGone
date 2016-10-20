@@ -26,7 +26,12 @@ public class DienstServlet extends HttpServlet {
             return;
         }
         System.out.println( loggedInUser );
-        req.setAttribute( "diensten" , dienstService.getAll() );
+        String searchTerm = req.getParameter( "searchTerm");
+        if ( null == searchTerm ) {
+            req.setAttribute("diensten", dienstService.getAll());
+        } else {
+            req.setAttribute("diensten", dienstService.search( searchTerm ));
+        }
         req.getRequestDispatcher( "/dienstUitproberenView.jsp" ).forward( req , resp );
     }
 }

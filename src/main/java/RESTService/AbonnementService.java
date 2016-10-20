@@ -37,8 +37,8 @@ public class AbonnementService {
         return AbonnementDAOFactory.getAccessObject().findAbonnement(abonneeId, company, name);
     }
 
-    public void shareWith( IAbonnement abonnementToShare , IAbonnee recepient ) {
+    public boolean shareWith( IAbonnement abonnementToShare , IAbonnee recepient ) {
         IAbonnee delendeAbonnee = AbonneeDAOFactory.getAccessObject().findAbonneeById( abonnementToShare.getAbonneeId() );
-        AbonnementDAOFactory.getAccessObject().shareAbonnement( recepient , delendeAbonnee , abonnementToShare.getDienst() );
+        return AbonnementDAOFactory.getAccessObject().shareAbonnement( recepient , delendeAbonnee , abonnementToShare.getDienst() );
     }
 }

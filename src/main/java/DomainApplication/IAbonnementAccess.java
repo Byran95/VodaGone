@@ -23,7 +23,14 @@ public interface IAbonnementAccess {
 
     void createAbonnement( IAbonnement abonnement );
 
-    void shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst);
+    /**
+     * Attemps to share an abonnement
+     * @param abonnee the recipient of the abonnement
+     * @param delendeAbonnee the owner of the abonnement
+     * @param dienst the service that provided with the abonnement.
+     * @return true if successful
+     */
+    boolean shareAbonnement(IAbonnee abonnee, IAbonnee delendeAbonnee, IDienst dienst);
 
     AbonnementSoort getEnumSoort(String soort);
 

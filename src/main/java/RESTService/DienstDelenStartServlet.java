@@ -35,9 +35,10 @@ public class DienstDelenStartServlet extends HttpServlet {
             return;
         }
 
+        //Build a list that contains all the abonnees with who the abonnement can't shared (e.g.: users that are already sharing, the abonnementowner)
         IAbonnement abonnementToShare = new AbonnementService().getByOwnerCompanyandName( abonneeId , bedrijf , naam );
-        List<IAbonnee> ignoreList = abonnementToShare.getGedeeldMet();
-        ignoreList.add( loggedInUser );
+        List<IAbonnee> ignoreList = new AbonneeService().getAbonneesThatAreSharing( abonnementToShare );
+        ignoreList.add( loggedInUser ); //Can't share with ourselves
 
         req.setAttribute( "abonnement" , abonnementToShare );
         req.setAttribute( "users" , new AbonneeService().getAllWithFilter( ignoreList ) );

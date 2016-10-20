@@ -36,6 +36,39 @@ public class AbonneeDAOMySQL extends MySQLDataAccessObject implements IAbonneeAc
         return convertedList;
     }
 
+    @Override
+    public List<IAbonnee> getAbonneesThatAreSharingAbonnement(IAbonnement sharedAbonnement) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+
+        ResultSet resultSet = null;
+
+        try {
+            String sql = "SELECT abonnee.* FROM abonnee , gedeeldeabonnementen WHERE" +
+                    " gedeeldeabonnementen.delendeAbonnee = ? AND gedeeldeabonnementen.bedrijf = ? AND" +
+                    " gedeeldeabonnementen.naam = ? AND abonnee.abonneeId = gedeeldeabonnementen.abonneeId";
+            PreparedStatement preparedStatement = helper.getConnection().prepareStatement( sql );
+            preparedStatement.setInt( 1 , sharedAbonnement.getAbonneeId() );
+            preparedStatement.setString( 2 , sharedAbonnement.getDienst().getBedrijf() );
+            preparedStatement.setString( 3 , sharedAbonnement.getDienst().getNaam() );
+            resultSet = helper.executeQuery( preparedStatement );
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        helper.close();
+        List<IAbonnee> convertedList = convertResultSet( resultSet );
+
+        try {
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return convertedList;
+    }
+
     private List<IAbonnee> convertResultSet( ResultSet resultSet ) {
         List<IAbonnee> results = new ArrayList<>();
 

@@ -9,10 +9,10 @@ import java.util.List;
 public interface IAbonneeAccess {
 
     List<IAbonnee> getAllAbonnees();
+    List<IAbonnee> getAbonneesThatAreSharingAbonnement( IAbonnement sharedAbonnement );
 
     IAbonnee findAbonneeMetEmail(String email);
     IAbonnee findAbonneeById( int  findId );
 
     void createAbonnee(String naam, String achternaam, String emailadres);
-
 }
