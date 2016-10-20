@@ -9,3 +9,5 @@ test/main.java
 # Maven
 log/
 target/
+src/main/resources/
+src/main/java/RESTService/JDBCDataSourceExample.java

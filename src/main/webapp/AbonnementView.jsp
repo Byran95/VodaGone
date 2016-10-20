@@ -12,30 +12,22 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Abonnementen:</h1>
-    <p>Alles:</p>
-    <p>${requestScope.abonnementen}</p>
-    <table>
+<h1>Abonnementen:</h1>
+<p>Alles:</p>
+<p>${requestScope.abonnementen}</p>
+<table>
     <tr>
         <th>Title</th>
         <th>Description</th>
         <th>Actions</th>
-        <th>Fields</th>
     </tr>
     <c:forEach items="${requestScope.abonnementen}" var="abonnement">
         <tr>
-            <td>${abonnement}</td>
+            <td>Fag </td>
             <td>Placeholder</td>
             <td><a href="/shareSubscription" >Share</a> - <a href="/upgradeSubscription" >Upgrade</a> - <a href="/cancelSubscription" >Cancel</a></td>
-            <td>
-                <ul>
-                    <c:forEach var="field" items="${abonnement['class'].declaredFields}">
-                        <c:catch><li><span>${field.name}: </span>${abonnement[field.name]}</li></c:catch>
-                    </c:forEach>
-                </ul>
-            </td>
         </tr>
     </c:forEach>
-    </table>
+</table>
 </body>
 </html>
