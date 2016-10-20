@@ -147,6 +147,30 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
     }
 
     @Override
+    public void createAbonnement(IAbonnement abonnement) {
+        MySQLDatabaseHelper helper = getDatabaseHelper();
+        PreparedStatement ps;
+
+        int verdubbeld = booleanToInt(abonnement.getVerdubbeld());
+
+        try {
+            ps = helper.getConnection().prepareStatement("INSERT INTO abonnement (abonneeId, bedrijf, naam, abonnementStatus, abonnementSoort, verdubbeld)\n" +
+                    "VALUES (?, ? ,?, ?, ?, ?);");
+            ps.setInt(1, abonnement.getAbonneeId());
+            ps.setString(2, abonnement.getDienst().getBedrijf());
+            ps.setString(3, abonnement.getDienst().getNaam());
+            ps.setString(4, abonnement.getStatus().toString());
+            ps.setString(5, abonnement.getSoort().toString());
+            ps.setInt(6, verdubbeld);
+            helper.executeQuery(ps);
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch (NoDatabaseConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public AbonnementSoort getEnumSoort(String soort) {
         switch (soort) {
             case "MAAND":
@@ -168,5 +192,19 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
             default:
                 return AbonnementStatus.ACTIEF;
         }
+    }
+
+    public boolean intToBoolean(int bit) {
+        if(bit == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public int booleanToInt(Boolean bool) {
+        if(bool == true) {
+            return 1;
+        }
+        return 0;
     }
 }

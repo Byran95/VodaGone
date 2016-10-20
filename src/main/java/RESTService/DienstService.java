@@ -12,4 +12,8 @@ public class DienstService {
     public List<IDienst> getAll() {
         return DienstDAOFactory.getAccessObject().getAll();
     }
+    public IDienst getServiceByCompanyAndName( String companyName , String serviceName ) {
+        System.out.println( "DienstService companyName: " + companyName + " serviceName: " + serviceName );
+        return DienstDAOFactory.getAccessObject().getDienstByCompanyAndName( companyName , serviceName );
+    }
 }

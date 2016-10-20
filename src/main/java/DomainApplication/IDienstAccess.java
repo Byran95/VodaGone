@@ -21,6 +21,14 @@ public interface IDienstAccess {
     List<IDienst> search( String searchTerm );
 
     /**
+     * Searches the db for a service matching the companyName and serviceName (These params together for a unique key).
+     * @param companyName   The company that provides the service.
+     * @param serviceName   The name of the service.
+     * @return a IDienst matching the search-params if succesful or null on error.
+     */
+    IDienst getDienstByCompanyAndName( String companyName , String serviceName );
+
+    /**
      * Create an entry in de persistance based on a given Dienst.
      * @param dienst the Dienst to base the entry on.
      * @return

@@ -65,9 +65,11 @@ public class AbonneeDAOMySQL extends MySQLDataAccessObject implements IAbonneeAc
         try {
             ps = helper.getConnection().prepareStatement("SELECT * FROM abonnee WHERE emailadres = ?");
             ps.setString(1, email);
-            abonnee = convertResultSet(helper.executeQuery(ps)).get(0);
-            return abonnee;
-
+            List<IAbonnee> results = convertResultSet(helper.executeQuery(ps));
+            if ( 0 < results.size() ) {
+                return results.get(0);
+            }
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoDatabaseConnectionException e) {

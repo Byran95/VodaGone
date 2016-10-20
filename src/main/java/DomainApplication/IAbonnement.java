@@ -16,7 +16,7 @@ public interface IAbonnement {
 
     void zegOp();
 
-    float berekendMaandPrijs();
+    float getMaandPrijs();
 
     int getAbonneeId();
 

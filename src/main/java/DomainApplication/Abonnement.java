@@ -43,7 +43,7 @@ public class Abonnement implements IAbonnement {
     }
 
     @Override
-    public float berekendMaandPrijs() {
+    public float getMaandPrijs() {
         return 0;
     }
 
@@ -115,6 +115,6 @@ public class Abonnement implements IAbonnement {
 
     @Override
     public void setDienst(IDienst dienst) {
-
+        this.dienst = dienst;
     }
 }

@@ -17,4 +17,8 @@ public class AbonnementService {
     public List<IAbonnement> getByAbonnee( int abonneeId ) {
         return AbonnementDAOFactory.getAccessObject().findAbonnementenVanAbonnee( abonneeId );
     }
+
+    public void createAbonnement( IAbonnement abonnement ) {
+        AbonnementDAOFactory.getAccessObject().createAbonnement( abonnement );
+    }
 }

@@ -71,11 +71,13 @@ public class MySQLDatabaseHelper {
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement( statement );
-            int index = 0;
+            int index = 1;
             for ( String statementParam : statementParams ) {
+                System.out.println( "Set statementParam: index: " + index + " param: " + statementParam );
                 preparedStatement.setString( index , statementParam );
                 index += 1;
             }
+            System.out.println( "preparedStatement: " + preparedStatement );
             ResultSet resultSet = preparedStatement.executeQuery();
             preparedStatement.close();
             return resultSet;

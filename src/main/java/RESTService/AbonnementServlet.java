@@ -1,5 +1,7 @@
 package RESTService;
 
+import DomainApplication.IAbonnee;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +19,18 @@ public class AbonnementServlet extends HttpServlet {
     AbonnementService service = new AbonnementService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute( "abonnementen" , service.getAll() );
+        IAbonnee loggedInUser = (IAbonnee) req.getSession().getAttribute( "loggedInUser" );
+        if ( null == loggedInUser ) {
+            req.getRequestDispatcher( "/login.jsp" ).forward( req , resp );
+            return;
+        }
+        System.out.println( loggedInUser );
+        req.setAttribute( "abonnementen" , service.getByAbonnee( loggedInUser.getAbonneeId() ) );
         req.getRequestDispatcher( "/AbonnementView.jsp" ).forward( req , resp );
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet( req , resp );
     }
 }
