@@ -35,7 +35,6 @@ public class ProbeerDienstServlet extends HttpServlet {
 
         new AbonnementService().createAbonnement( abonnement );
 
-        System.out.println( "serviceToTryout: " + serviceToTryout );
         req.getRequestDispatcher("/abonnementen").forward( req, resp);
     }
 }

@@ -5,19 +5,19 @@ package DomainApplication;
  */
 public interface IAbonnee {
 
-    public String getAchternaam();
+    String getAchternaam();
 
-    public String getNaam();
+    String getNaam();
 
-    public String getEmailadres();
+    String getEmailadres();
 
-    public int getAbonneeId();
+    int getAbonneeId();
 
-    public void setAchternaam(String achternaam);
+    void setAchternaam(String achternaam);
 
-    public void setNaam(String naam);
+    void setNaam(String naam);
 
-    public void setEmailadres(String emailadres);
+    void setEmailadres(String emailadres);
 
-    public void setAbonneeId(int abonneeId);
+    void setAbonneeId(int abonneeId);
 }

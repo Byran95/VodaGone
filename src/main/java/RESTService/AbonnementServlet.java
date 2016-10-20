@@ -24,7 +24,6 @@ public class AbonnementServlet extends HttpServlet {
             req.getRequestDispatcher( "/login.jsp" ).forward( req , resp );
             return;
         }
-        System.out.println( loggedInUser );
         req.setAttribute( "abonnementen" , service.getByAbonnee( loggedInUser.getAbonneeId() ) );
         req.getRequestDispatcher( "/AbonnementView.jsp" ).forward( req , resp );
     }

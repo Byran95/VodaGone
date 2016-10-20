@@ -59,8 +59,6 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
                 ));
                 results.add(abonnement);
             }
-            System.out.println("Size: " + results.size());
-            System.out.println("First record: : " + results);
             return results;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -175,8 +173,6 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
         MySQLDatabaseHelper helper = getDatabaseHelper();
         PreparedStatement ps;
 
-        System.out.println("UPDATE abonnement SET verdubbeld=" + verdubbeld + " WHERE abonneeId = " + abonneeId + " AND bedrijf = " + bedrijf + " AND naam = " + naam + "");
-
         try {
             ps = helper.getConnection().prepareStatement("UPDATE abonnement SET verdubbeld=? WHERE abonneeId = ? AND bedrijf = ? AND naam = ?");
             ps.setBoolean(1, verdubbeld);
@@ -231,7 +227,6 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
         if(nGedeeld < 2) {
             return true;
         }
-        System.out.println("nGedeeld: " + nGedeeld);
         return false;
     }
 

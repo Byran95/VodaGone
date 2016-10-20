@@ -25,12 +25,9 @@ public class LoginServlet extends HttpServlet {
             if ( null == userEmail ) {
                 req.getRequestDispatcher("/login.jsp").forward(req, resp);
             } else {
-                System.out.println("userEmail: " + userEmail);
                 IAbonnee foundUser = abonneeService.getAbonneeByEmail(userEmail);
-                System.out.println("foundUser: " + foundUser);
                 if ( null == foundUser ) {
                     //Error
-                    System.out.println( "User not found!" );
                     req.setAttribute( "errorMsg" , "No such user" );
                     req.getRequestDispatcher("/login.jsp").forward(req, resp);
                 } else {
