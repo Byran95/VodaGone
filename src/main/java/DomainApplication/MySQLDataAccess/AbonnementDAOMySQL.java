@@ -57,6 +57,7 @@ public class AbonnementDAOMySQL extends MySQLDataAccessObject implements IAbonne
                         resultSet.getBoolean("verdubbelbaar"),
                         resultSet.getBoolean("deelbaar"))
                 );
+                System.out.println( "ab.dienst: " + abonnement.getDienst() );
                 results.add(abonnement);
             }
             System.out.println("Size: " + results.size());
