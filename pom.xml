@@ -92,11 +92,6 @@
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
         </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.39</version>
-        </dependency>
     </dependencies>
     <properties>
         <jersey.version>2.23.2</jersey.version>
