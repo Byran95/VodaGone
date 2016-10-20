@@ -4,7 +4,7 @@ import DomainApplication.IAbonneeAccess;
 import DomainApplication.MySQLDataAccess.AbonneeDAOMySQL;
 
 /**
- * Created by Anders Egberts on 18/10/2016.
+ * Created by Bryan van Elden on 18/10/2016.
  */
 public class AbonneeDAOFactory {
 

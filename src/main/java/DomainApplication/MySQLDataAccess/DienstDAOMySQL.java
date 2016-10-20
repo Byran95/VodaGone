@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Anders Egberts on 12/10/2016.
+ * Created by Bryan van Elden on 12/10/2016.
  */
 public class DienstDAOMySQL extends MySQLDataAccessObject implements IDienstAccess {
     @Override

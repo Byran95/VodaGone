@@ -3,7 +3,7 @@ package DomainApplication.MySQLDataAccess;
 import java.sql.Connection;
 
 /**
- * Created by Anders Egberts on 17/10/2016.
+ * Created by Bryan van Elden on 17/10/2016.
  */
 public class MySQLDataAccessObject {
     protected Connection preferredConnection = null;

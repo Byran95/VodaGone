@@ -1,7 +1,7 @@
 package DomainApplication.MySQLDataAccess;
 
 /**
- * Created by Anders Egberts on 17/10/2016.
+ * Created by Bryan van Elden on 17/10/2016.
  */
 public class NoDatabaseConnectionException extends Exception {
 }

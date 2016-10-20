@@ -5,7 +5,7 @@ import Util.ServerLogger;
 import java.sql.*;
 
 /**
- * Created by Anders Egberts on 17/10/2016.
+ * Created by Bryan van Elden on 17/10/2016.
  */
 public class MySQLDatabaseHelper {
     private final String DATABASE_URL = "jdbc:mysql://localhost/vodagone";
