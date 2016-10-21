@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Deze Servlet bevat geen markup-code (Eis: M2)
+ *
  * Created by Anders Egberts on 20/10/2016.
  */
 @WebServlet(
         urlPatterns = { "/register" }
 )
-public class RegisterAbonnee extends HttpServlet {
+public class RegisterAbonneeServlet extends HttpServlet {
     private AbonneeService abonneeService = new AbonneeService();
 
     @Override

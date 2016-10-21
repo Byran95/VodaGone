@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Deze Servlet bevat geen markup-code (Eis: M2)
+ *
  * Created by Anders Egberts on 18/10/2016.
  */
 public class DienstZoekenServlet extends HttpServlet {

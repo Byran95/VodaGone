@@ -8,7 +8,9 @@ import java.util.List;
  * Created by Anders Egberts on 14/10/2016.
  */
 public class AbonnementService {
-
+    /*
+    Directe aanroep methoden voor communicatie in de container (Eis IO1)
+     */
     public List<IAbonnement> getAll() {
         return AbonnementDAOFactory.getAccessObject().getAllAbonnementen();
     }

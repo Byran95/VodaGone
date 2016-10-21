@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * Deze Servlet bevat geen markup-code (Eis: M2)
+ *
  * Haalt de users op waarmee de dienst gedeeld kan worden.
  * Created by Anders Egberts on 20/10/2016.
  */

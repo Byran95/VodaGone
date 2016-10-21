@@ -4,6 +4,7 @@ import javax.servlet.*;
 import java.io.IOException;
 
 /**
+ * Deze Servlet bevat geen markup-code (Eis: M2)
  * Created by Anders Egberts on 14/10/2016.
  */
 public class AbonneeServlet implements Servlet {

@@ -8,7 +8,7 @@ import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
 public class DienstDAOFactory {
 
     /**
-     * Gets the Data Acces Object based on the databasetype in settings.xml
+     * Gets the Data Acces Object based on the databasetype in settings.xml. (Eis: IM1)
      * @return the appropriate DAO or null if no DAO matching the database type was found.
      */
     public static IDienstAccess getAccessObject() {

@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * Contains a few functions to easily manipulate the database with.
- * This interface needs to be implemented by a class for each databasetype (e.g.: MySQL, NoSQL, Flat files
+ * This interface needs to be implemented by a class for each databasetype (e.g.: MySQL, NoSQL, Flat files)
+ * (Eis: IM1)
  * Created by Anders Egberts on 12/10/2016.
  */
 public interface IAbonneeAccess {

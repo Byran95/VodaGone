@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Deze Servlet bevat geen markup-code (Eis: M2)
+ *
  * Created by Anders Egberts on 20/10/2016.
  */
 @WebServlet(
