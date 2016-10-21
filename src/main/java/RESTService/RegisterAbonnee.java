@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(
         urlPatterns = { "/register" }
 )
-public class registerAbonnee extends HttpServlet {
+public class RegisterAbonnee extends HttpServlet {
     private AbonneeService abonneeService = new AbonneeService();
 
     @Override
