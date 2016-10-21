@@ -2,6 +2,7 @@ package RESTService;
 
 import DomainApplication.IAbonnee;
 import DomainApplication.IAbonnement;
+import com.google.inject.Guice;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,13 +36,14 @@ public class DienstDelenStartServlet extends HttpServlet {
             return;
         }
 
+        IAbonneeService abonneeService = Guice.createInjector().getInstance( IAbonneeService.class );
         //Build a list that contains all the abonnees with who the abonnement can't shared (e.g.: users that are already sharing, the abonnementowner)
-        IAbonnement abonnementToShare = new AbonnementService().getByOwnerCompanyandName( abonneeId , bedrijf , naam );
-        List<IAbonnee> ignoreList = new AbonneeService().getAbonneesThatAreSharing( abonnementToShare );
+        IAbonnement abonnementToShare = Guice.createInjector().getInstance( IAbonnementService.class ).getByOwnerCompanyandName( abonneeId , bedrijf , naam );
+        List<IAbonnee> ignoreList = abonneeService.getAbonneesThatAreSharing( abonnementToShare );
         ignoreList.add( loggedInUser ); //Can't share with ourselves
 
         req.setAttribute( "abonnement" , abonnementToShare );
-        req.setAttribute( "users" , new AbonneeService().getAllWithFilter( ignoreList ) );
+        req.setAttribute( "users" , abonneeService.getAllWithFilter( ignoreList ) );
         req.getRequestDispatcher( "/dienstDelen.jsp" ).forward( req , resp );
     }
 }

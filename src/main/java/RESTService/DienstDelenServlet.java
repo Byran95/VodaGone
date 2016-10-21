@@ -2,6 +2,7 @@ package RESTService;
 
 import DomainApplication.IAbonnee;
 import DomainApplication.IAbonnement;
+import com.google.inject.Guice;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,9 +35,9 @@ public class DienstDelenServlet extends HttpServlet {
             return;
         }
 
-        AbonnementService abonnementService = new AbonnementService();
+        IAbonnementService abonnementService = Guice.createInjector().getInstance( IAbonnementService.class );
         IAbonnement abonnementToShare = abonnementService.getByOwnerCompanyandName( abonneeId , bedrijf , naam );
-        IAbonnee shareRecipient = new AbonneeService().getAbonneeById( targetAbonneeId );
+        IAbonnee shareRecipient = Guice.createInjector().getInstance( IAbonneeService.class ).getAbonneeById( targetAbonneeId );
         Boolean bSuccessful = abonnementService.shareWith( abonnementToShare , shareRecipient );
 
         if ( !bSuccessful ) {

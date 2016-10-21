@@ -1,6 +1,7 @@
 package RESTService;
 
 import DomainApplication.IAbonnee;
+import com.google.inject.Guice;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,7 @@ import java.io.IOException;
         urlPatterns = { "/register" }
 )
 public class RegisterAbonnee extends HttpServlet {
-    private AbonneeService abonneeService = new AbonneeService();
+    private IAbonneeService abonneeService = Guice.createInjector().getInstance( IAbonneeService.class );
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,7 +52,7 @@ public class RegisterAbonnee extends HttpServlet {
                 req.getRequestDispatcher("/createAccount.jsp").forward(req, resp);
             } else if ( null != userEmail && null != lastNameName && null != firstName ) {
                 //Succes
-                new AbonneeService().createAbonnee( firstName , lastNameName , userEmail );
+                Guice.createInjector().getInstance( IAbonneeService.class ).createAbonnee( firstName , lastNameName , userEmail );
                 req.getRequestDispatcher("/login.jsp").forward(req, resp);
             }
         } else {

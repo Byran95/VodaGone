@@ -1,8 +1,10 @@
 package RESTService;
 
 import DomainApplication.IAbonnee;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +18,14 @@ import java.io.IOException;
         urlPatterns = { "/abonnementen" }
 )
 public class AbonnementServlet extends HttpServlet {
-    AbonnementService service = new AbonnementService();
+    IAbonnementService service;
+
+    @Inject
+    public AbonnementServlet(){
+        service = Guice.createInjector().getInstance( IAbonnementService.class );
+        System.out.println( "Injected" );
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAbonnee loggedInUser = (IAbonnee) req.getSession().getAttribute( "loggedInUser" );

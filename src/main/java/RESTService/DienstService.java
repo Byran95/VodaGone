@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Anders Egberts on 14/10/2016.
  */
-public class DienstService {
+public class DienstService implements IDienstService {
     public List<IDienst> getAll() {
         return DienstDAOFactory.getAccessObject().getAll();
     }

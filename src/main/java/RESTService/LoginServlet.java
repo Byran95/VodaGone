@@ -1,6 +1,7 @@
 package RESTService;
 
 import DomainApplication.IAbonnee;
+import com.google.inject.Guice;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,7 @@ import java.io.IOException;
         urlPatterns = { "/login" }
 )
 public class LoginServlet extends HttpServlet {
-    private AbonneeService abonneeService = new AbonneeService();
+    private IAbonneeService abonneeService = Guice.createInjector().getInstance( IAbonneeService.class );
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

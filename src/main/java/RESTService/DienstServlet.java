@@ -1,6 +1,7 @@
 package RESTService;
 
 import DomainApplication.IAbonnee;
+import com.google.inject.Guice;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,7 @@ import java.io.IOException;
         urlPatterns = { "/dienstUitproberen" }
 )
 public class DienstServlet extends HttpServlet {
-    DienstService dienstService = new DienstService();
+    IDienstService dienstService = Guice.createInjector().getInstance( IDienstService.class );
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

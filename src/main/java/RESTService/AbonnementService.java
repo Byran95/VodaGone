@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Anders Egberts on 14/10/2016.
  */
-public class AbonnementService {
+public class AbonnementService implements IAbonnementService {
 
     public List<IAbonnement> getAll() {
         return AbonnementDAOFactory.getAccessObject().getAllAbonnementen();

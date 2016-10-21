@@ -1,6 +1,7 @@
 package RESTService;
 
 import DomainApplication.*;
+import com.google.inject.Guice;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,14 +27,14 @@ public class ProbeerDienstServlet extends HttpServlet {
 
         String companyName = req.getParameter( "cn" );
         String serviceName = req.getParameter( "sn" );
-        IDienst serviceToTryout = new DienstService().getServiceByCompanyAndName( companyName , serviceName );
+        IDienst serviceToTryout = Guice.createInjector().getInstance( IDienstService.class ).getServiceByCompanyAndName( companyName , serviceName );
 
         int userId = loggedInUser.getAbonneeId();
 
         IAbonnement abonnement = new Abonnement( userId , "" , false , AbonnementSoort.MAAND , AbonnementStatus.PROEF );
         abonnement.setDienst( serviceToTryout );
 
-        new AbonnementService().createAbonnement( abonnement );
+        Guice.createInjector().getInstance( IAbonnementService.class ).createAbonnement( abonnement );
 
         req.getRequestDispatcher("/abonnementen").forward( req, resp);
     }
