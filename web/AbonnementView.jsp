@@ -31,6 +31,7 @@
                     <th>Aanbieder</th>
                     <th>Beschrijving</th>
                     <th>Status</th>
+                    <th>Verdubbeld</th>
                     <th>Start datum</th>
                     <th>Actions</th>
                 </tr>
@@ -40,17 +41,20 @@
                         <td>${abonnement.dienst.bedrijf}</td>
                         <td>${abonnement.dienst.beschrijving}</td>
                         <td>${abonnement.status}</td>
+                        <td>${abonnement.verdubbeld}</td>
                         <td>${abonnement.startDatum}</td>
                         <td>
-                            <c:if test="${abonnement.deelbaar}">
-                                <a href="/startSharingService?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Share</a> -
+                            <c:if test="${abonnement.status != 'OPGEZEGD'}">
+                                <c:if test="${abonnement.deelbaar}">
+                                    <a href="/startSharingService?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Share</a> -
+                                </c:if>
+                                <a href="/upgradeSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}&verdubbeld=${abonnement.verdubbeld}">Upgrade</a> - <a href="/cancelSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Cancel</a>
                             </c:if>
-                            <a href="/upgradeSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Upgrade</a> - <a href="/cancelSubscription?naam=${abonnement.dienst.naam}&bedrijf=${abonnement.dienst.bedrijf}">Cancel</a>
                         </td>
                     </tr>
                 </c:forEach>
                 <tr>
-                    <td colspan="6"><a href="/dienstUitproberen" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Nieuw abonnement toevoegen.</a></td>
+                    <td colspan="7"><a href="/dienstUitproberen" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Nieuw abonnement toevoegen.</a></td>
                 </tr>
             </table>
         </c:if>

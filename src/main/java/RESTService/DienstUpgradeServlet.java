@@ -17,7 +17,6 @@ import java.io.IOException;
 )
 public class DienstUpgradeServlet extends HttpServlet {
     AbonnementService abonnementService = new AbonnementService();
-    AbonneeService abonneeService = new AbonneeService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,7 +34,7 @@ public class DienstUpgradeServlet extends HttpServlet {
             return;
         }
 
-        abonnementService.updateVerdubbeld( !verdubbeld, abonneeId, bedrijf, naam);
+        abonnementService.updateVerdubbeld( !verdubbeld , abonneeId, bedrijf, naam);
         resp.sendRedirect(resp.encodeRedirectURL("/abonnementen"));
     }
 }

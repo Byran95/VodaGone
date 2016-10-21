@@ -22,7 +22,6 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/abonnementen">Mijn Abonnementen</a></li>
                 <li><a href="/dienstUitproberen">Diensten</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:if test="${not empty sessionScope.loggedInUser}">
