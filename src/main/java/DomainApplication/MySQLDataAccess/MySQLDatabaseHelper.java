@@ -1,7 +1,5 @@
 package DomainApplication.MySQLDataAccess;
 
-import Util.ServerLogger;
-
 import java.sql.*;
 
 /**
@@ -18,13 +16,10 @@ public class MySQLDatabaseHelper {
      * Creates the object. On creation the object will attempt to connect to the db.
      */
     public MySQLDatabaseHelper() {
-        ServerLogger.log( getClass() , "No custom connection" );
         try {
             DriverManager.registerDriver( new org.mariadb.jdbc.Driver() );
             connection = DriverManager.getConnection(DATABASE_URL, USER, PASS);
-            ServerLogger.log( getClass() , "connection: " + connection );
         } catch (SQLException e) {
-            ServerLogger.log( getClass() , "Failed to setup connection" );
             e.printStackTrace();
         }
     }
@@ -39,9 +34,7 @@ public class MySQLDatabaseHelper {
     }
 
     public ResultSet executeQuery( String statement ) throws NoDatabaseConnectionException {
-        ServerLogger.log( getClass() , "statement: " + statement );
         if ( null == connection ) {
-            ServerLogger.log( getClass() , "No connection" );
             throw new NoDatabaseConnectionException();
         }
 
