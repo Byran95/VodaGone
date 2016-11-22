@@ -2,6 +2,7 @@ package RESTService;
 
 import DomainApplication.IAbonnee;
 import DomainApplication.IAbonnement;
+import com.google.inject.Inject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,13 @@ import java.io.IOException;
     value = "/shareService"
 )
 public class DienstDelenServlet extends HttpServlet {
+    @Inject
+    private IDienstService dienstService;
+    @Inject
+    private IAbonneeService abonneeService;
+    @Inject
+    private IAbonnementService abonnementService;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAbonnee loggedInUser = (IAbonnee) req.getSession().getAttribute( "loggedInUser" );
@@ -35,9 +43,8 @@ public class DienstDelenServlet extends HttpServlet {
             return;
         }
 
-        AbonnementService abonnementService = new AbonnementService();
         IAbonnement abonnementToShare = abonnementService.getByOwnerCompanyandName( abonneeId , bedrijf , naam );
-        IAbonnee shareRecipient = new AbonneeService().getAbonneeById( targetAbonneeId );
+        IAbonnee shareRecipient = abonneeService.getAbonneeById( targetAbonneeId );
         Boolean bSuccessful = abonnementService.shareWith( abonnementToShare , shareRecipient );
 
         if ( !bSuccessful ) {

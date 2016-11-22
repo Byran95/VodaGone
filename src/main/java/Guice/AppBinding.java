@@ -10,7 +10,7 @@ public class AppBinding extends ServletModule {
     @Override
     protected void configureServlets() {
         super.configureServlets();
-        serve("/login").with(LoginServlet.class);
+        serve("login").with(LoginServlet.class);
         bind(IAbonnementService.class).to(AbonnementService.class);
         bind(IAbonneeService.class).to(AbonneeService.class);
         bind(IDienstService.class).to(IDienstService.class);

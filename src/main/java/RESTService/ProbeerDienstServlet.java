@@ -1,6 +1,7 @@
 package RESTService;
 
 import DomainApplication.*;
+import com.google.inject.Inject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,11 @@ import java.io.IOException;
     value = "/tryService"
 )
 public class ProbeerDienstServlet extends HttpServlet {
+    @Inject
+    private IAbonnementService abonnementService;
+    @Inject
+    private IDienstService dienstService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAbonnee loggedInUser = (IAbonnee) req.getSession().getAttribute( "loggedInUser" );
@@ -28,14 +34,14 @@ public class ProbeerDienstServlet extends HttpServlet {
 
         String companyName = req.getParameter( "cn" );
         String serviceName = req.getParameter( "sn" );
-        IDienst serviceToTryout = new DienstService().getServiceByCompanyAndName( companyName , serviceName );
+        IDienst serviceToTryout = dienstService.getServiceByCompanyAndName( companyName , serviceName );
 
         int userId = loggedInUser.getAbonneeId();
 
         IAbonnement abonnement = new Abonnement( userId , "" , false , AbonnementSoort.MAAND , AbonnementStatus.PROEF );
         abonnement.setDienst( serviceToTryout );
 
-        new AbonnementService().createAbonnement( abonnement );
+        abonnementService.createAbonnement( abonnement );
 
         req.getRequestDispatcher("/abonnementen").forward( req, resp);
     }

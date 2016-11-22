@@ -1,6 +1,7 @@
 package RESTService;
 
 import DomainApplication.IAbonnee;
+import com.google.inject.Inject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +19,8 @@ import java.io.IOException;
         urlPatterns = { "/cancelSubscription" }
 )
 public class DienstOpzeggenServlet extends HttpServlet {
-    AbonnementService abonnementService = new AbonnementService();
-    AbonneeService abonneeService = new AbonneeService();
+    @Inject
+    private IAbonnementService abonnementService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

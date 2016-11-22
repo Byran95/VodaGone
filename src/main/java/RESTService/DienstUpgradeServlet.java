@@ -1,6 +1,7 @@
 package RESTService;
 
 import DomainApplication.IAbonnee;
+import com.google.inject.Inject;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +19,8 @@ import java.io.IOException;
         urlPatterns = { "/upgradeSubscription" }
 )
 public class DienstUpgradeServlet extends HttpServlet {
-    AbonnementService abonnementService = new AbonnementService();
+    @Inject
+    IAbonnementService abonnementService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

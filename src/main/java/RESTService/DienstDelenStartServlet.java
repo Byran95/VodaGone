@@ -2,6 +2,7 @@ package RESTService;
 
 import DomainApplication.IAbonnee;
 import DomainApplication.IAbonnement;
+import com.google.inject.Inject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,11 @@ import java.util.List;
         value = "/startSharingService"
 )
 public class DienstDelenStartServlet extends HttpServlet {
+    @Inject
+    private IAbonnementService abonnementService;
+    @Inject
+    private IAbonneeService abonneeService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAbonnee loggedInUser = (IAbonnee) req.getSession().getAttribute( "loggedInUser" );
@@ -38,12 +44,12 @@ public class DienstDelenStartServlet extends HttpServlet {
         }
 
         //Build a list that contains all the abonnees with who the abonnement can't shared (e.g.: users that are already sharing, the abonnementowner)
-        IAbonnement abonnementToShare = new AbonnementService().getByOwnerCompanyandName( abonneeId , bedrijf , naam );
-        List<IAbonnee> ignoreList = new AbonneeService().getAbonneesThatAreSharing( abonnementToShare );
+        IAbonnement abonnementToShare = abonnementService.getByOwnerCompanyandName( abonneeId , bedrijf , naam );
+        List<IAbonnee> ignoreList = abonneeService.getAbonneesThatAreSharing( abonnementToShare );
         ignoreList.add( loggedInUser ); //Can't share with ourselves
 
         req.setAttribute( "abonnement" , abonnementToShare );
-        req.setAttribute( "users" , new AbonneeService().getAllWithFilter( ignoreList ) );
+        req.setAttribute( "users" , abonneeService.getAllWithFilter( ignoreList ) );
         req.getRequestDispatcher( "/dienstDelen.jsp" ).forward( req , resp );
     }
 }
