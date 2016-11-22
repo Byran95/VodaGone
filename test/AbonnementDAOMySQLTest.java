@@ -1,7 +1,10 @@
 import DomainApplication.*;
-import DomainApplication.MySQLDataAccess.AbonneeDAOMySQL;
-import DomainApplication.MySQLDataAccess.AbonnementDAOMySQL;
-import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
+import DomainApplication.abonnement.AbonnementDAOMySQL;
+import DomainApplication.abonnee.Abonnee;
+import DomainApplication.abonnement.Abonnement;
+import DomainApplication.abonnement.AbonnementSoort;
+import DomainApplication.abonnement.AbonnementStatus;
+import DomainApplication.dienst.Dienst;
 import TestUtil.MockedResultSet;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.sql.*;
-import java.util.Enumeration;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

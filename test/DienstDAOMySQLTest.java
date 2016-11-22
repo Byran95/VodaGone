@@ -1,6 +1,6 @@
-import DomainApplication.Dienst;
+import DomainApplication.dienst.Dienst;
 import DomainApplication.IDienst;
-import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
+import DomainApplication.dienst.DienstDAOMySQL;
 import TestUtil.MockedResultSet;
 import org.junit.Before;
 import org.junit.Test;

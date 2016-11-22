@@ -1,5 +1,5 @@
-import DomainApplication.MySQLDataAccess.MySQLDatabaseHelper;
-import DomainApplication.MySQLDataAccess.NoDatabaseConnectionException;
+import Util.MySQLDatabaseHelper;
+import Util.NoDatabaseConnectionException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

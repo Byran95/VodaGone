@@ -10,4 +10,4 @@ test/main.java
 log/
 target/
 src/main/resources/
-src/main/java/RESTService/JDBCDataSourceExample.java
+src/main/java/DomainApplication/account/JDBCDataSourceExample.java

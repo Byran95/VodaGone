@@ -1,7 +1,5 @@
-import DomainApplication.Abonnee;
 import DomainApplication.IAbonnee;
-import DomainApplication.MySQLDataAccess.AbonneeDAOMySQL;
-import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
+import DomainApplication.abonnee.AbonneeDAOMySQL;
 import TestUtil.MockedResultSet;
 import org.junit.Before;
 import org.junit.Test;

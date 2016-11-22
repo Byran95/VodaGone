@@ -1,5 +1,8 @@
 package DomainApplication;
 
+import DomainApplication.abonnement.AbonnementSoort;
+import DomainApplication.abonnement.AbonnementStatus;
+
 import java.util.List;
 
 /**

@@ -1,6 +1,6 @@
-import DomainApplication.AbonnementDAOFactory;
-import DomainApplication.MySQLDataAccess.AbonnementDAOMySQL;
-import DomainApplication.SettingsReader;
+import DomainApplication.abonnement.AbonnementDAOFactory;
+import DomainApplication.abonnement.AbonnementDAOMySQL;
+import Util.SettingsReader;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
