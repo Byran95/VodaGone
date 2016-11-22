@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Anders Egberts on 14/10/2016.
  */
-public class AbonneeService {
+public class AbonneeService implements IAbonneeService {
     /*
     Directe aanroep methoden voor communicatie in de container (Eis IO1)
      */
