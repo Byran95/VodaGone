@@ -1,6 +1,10 @@
 package DomainApplication.abonnee;
 
+import DomainApplication.IAbonnee;
 import DomainApplication.abonnee.AbonneeService;
+import DomainApplication.abonnement.AbonnementService;
+import jersey.AbonneeJerseyService;
+import jersey.AbonnementJerseyService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,14 +20,15 @@ import java.io.IOException;
         urlPatterns = { "/register" }
 )
 public class registerAbonnee extends HttpServlet {
-    private AbonneeService abonneeService = new AbonneeService();
+    AbonneeJerseyService jerseyService = new AbonneeJerseyService();
+    AbonneeService service = new AbonneeService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if ( null == req.getSession().getAttribute( "loggedInUser" ) ) {
             String userEmail = req.getParameter( "email" );
             String firstName = req.getParameter( "firstName" );
-            String lastNameName = req.getParameter( "lastName" );
+            String lastName = req.getParameter( "lastName" );
 
             //Empty fields will be reset to null for convenience.
             if ( "".equals( userEmail ) ) {
@@ -32,16 +37,16 @@ public class registerAbonnee extends HttpServlet {
             if ( "".equals( firstName ) ) {
                 firstName = null;
             }
-            if ( "".equals( lastNameName ) ) {
-                lastNameName = null;
+            if ( "".equals( lastName ) ) {
+                lastName = null;
             }
 
-            if ( null == userEmail || null == lastNameName || null == firstName ) {
-                if ( !( null == userEmail && null == lastNameName && null == firstName ) ) {
+            if ( null == userEmail || null == lastName || null == firstName ) {
+                if ( !( null == userEmail && null == lastName && null == firstName ) ) {
                     if ( null == userEmail ) {
                         req.setAttribute("errorMsg", "Vul een e-mailadres in!");
                     }
-                    if ( null == lastNameName ) {
+                    if ( null == lastName ) {
                         req.setAttribute("errorMsg", "Vul een achternaam in!");
                     }
                     if ( null == firstName ) {
@@ -49,9 +54,10 @@ public class registerAbonnee extends HttpServlet {
                     }
                 }
                 req.getRequestDispatcher("/createAccount.jsp").forward(req, resp);
-            } else if ( null != userEmail && null != lastNameName && null != firstName ) {
+            } else if ( null != userEmail && null != lastName && null != firstName ) {
                 //Succes
-                new AbonneeService().createAbonnee( firstName , lastNameName , userEmail );
+                Abonnee abonnee = new Abonnee(firstName, lastName, userEmail);
+                jerseyService.createAbonnee( abonnee );
                 req.getRequestDispatcher("/login.jsp").forward(req, resp);
             }
         } else {

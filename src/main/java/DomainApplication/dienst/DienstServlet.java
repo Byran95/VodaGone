@@ -1,6 +1,7 @@
 package DomainApplication.dienst;
 
 import DomainApplication.IAbonnee;
+import jersey.DienstJerseyService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import java.io.IOException;
 )
 public class DienstServlet extends HttpServlet {
     DienstService dienstService = new DienstService();
+    DienstJerseyService jerseyService = new DienstJerseyService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,9 +31,9 @@ public class DienstServlet extends HttpServlet {
         String searchTerm = req.getParameter( "searchTerm" );
         System.out.println( "searchTerm: " + searchTerm );
         if ( null == searchTerm ) {
-            req.setAttribute("diensten", dienstService.getAll());
+            req.setAttribute("diensten", jerseyService.getAll());
         } else {
-            req.setAttribute("diensten", dienstService.search( searchTerm ));
+            req.setAttribute("diensten", jerseyService.search( searchTerm ));
         }
         req.getRequestDispatcher( "/dienstUitproberenView.jsp" ).forward( req , resp );
     }

@@ -17,6 +17,7 @@
 <body>
 <c:import url="navbar.jsp"></c:import>
 <div class="container">
+
     <h1>Abonnementen:</h1>
     <c:if test="${fn:length(requestScope.abonnementen) gt 0}">
         <table class="table table-striped">

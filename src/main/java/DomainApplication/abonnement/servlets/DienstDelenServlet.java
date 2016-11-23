@@ -4,6 +4,8 @@ import DomainApplication.IAbonnee;
 import DomainApplication.IAbonnement;
 import DomainApplication.abonnee.AbonneeService;
 import DomainApplication.abonnement.AbonnementService;
+import jersey.AbonneeJerseyService;
+import jersey.AbonnementJerseyService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,9 @@ import java.io.IOException;
         value = "/shareService"
 )
 public class DienstDelenServlet extends HttpServlet {
+    AbonnementService abonnementService = new AbonnementService();
+    AbonnementJerseyService jerseyService = new AbonnementJerseyService();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAbonnee loggedInUser = (IAbonnee) req.getSession().getAttribute( "loggedInUser" );
@@ -36,10 +41,9 @@ public class DienstDelenServlet extends HttpServlet {
             return;
         }
 
-        AbonnementService abonnementService = new AbonnementService();
-        IAbonnement abonnementToShare = abonnementService.getByOwnerCompanyandName( abonneeId , bedrijf , naam );
-        IAbonnee shareRecipient = new AbonneeService().getAbonneeById( targetAbonneeId );
-        abonnementService.shareWith( abonnementToShare , shareRecipient );
+        IAbonnement abonnementToShare = jerseyService.getByOwnerCompanyandName( abonneeId , bedrijf , naam );
+        IAbonnee shareRecipient = new AbonneeJerseyService().getAbonneeById( targetAbonneeId );
+        jerseyService.shareWith( abonnementToShare , shareRecipient );
 
         resp.getWriter().write( "Service shared!!!111one");
     }

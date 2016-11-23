@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class AbonnementService {
 
+
     public List<IAbonnement> getAll() {
         return AbonnementDAOFactory.getAccessObject().getAllAbonnementen();
     }

@@ -6,6 +6,8 @@ import DomainApplication.abonnement.AbonnementService;
 import DomainApplication.abonnement.AbonnementSoort;
 import DomainApplication.abonnement.AbonnementStatus;
 import DomainApplication.dienst.DienstService;
+import jersey.AbonnementJerseyService;
+import jersey.DienstJerseyService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,12 @@ import java.io.IOException;
         value = "/tryService"
 )
 public class ProbeerDienstServlet extends HttpServlet {
+    AbonnementService service = new AbonnementService();
+    AbonnementJerseyService jerseyService = new AbonnementJerseyService();
+
+    DienstService dienstService = new DienstService();
+    DienstJerseyService dienstJerseyService = new DienstJerseyService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAbonnee loggedInUser = (IAbonnee) req.getSession().getAttribute( "loggedInUser" );
@@ -31,14 +39,14 @@ public class ProbeerDienstServlet extends HttpServlet {
 
         String companyName = req.getParameter( "cn" );
         String serviceName = req.getParameter( "sn" );
-        IDienst serviceToTryout = new DienstService().getServiceByCompanyAndName( companyName , serviceName );
+        IDienst serviceToTryout = dienstJerseyService.getServiceByCompanyAndName( companyName , serviceName );
 
         int userId = loggedInUser.getAbonneeId();
 
         IAbonnement abonnement = new Abonnement( userId , "" , false , AbonnementSoort.MAAND , AbonnementStatus.PROEF );
         abonnement.setDienst( serviceToTryout );
 
-        new AbonnementService().createAbonnement( abonnement );
+        jerseyService.createAbonnement( abonnement );
 
         System.out.println( "serviceToTryout: " + serviceToTryout );
         req.getRequestDispatcher("/abonnementen").forward( req, resp);

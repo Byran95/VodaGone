@@ -2,6 +2,7 @@ package DomainApplication.account;
 
 import DomainApplication.IAbonnee;
 import DomainApplication.abonnee.AbonneeService;
+import jersey.AbonneeJerseyService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,7 @@ import java.io.IOException;
 )
 public class LoginServlet extends HttpServlet {
     private AbonneeService abonneeService = new AbonneeService();
+    AbonneeJerseyService jerseyService = new AbonneeJerseyService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,7 +29,7 @@ public class LoginServlet extends HttpServlet {
                 req.getRequestDispatcher("/login.jsp").forward(req, resp);
             } else {
                 System.out.println("userEmail: " + userEmail);
-                IAbonnee foundUser = abonneeService.getAbonneeByEmail(userEmail);
+                IAbonnee foundUser = jerseyService.getAbonneeByEmail(userEmail);
                 System.out.println("foundUser: " + foundUser);
                 if ( null == foundUser ) {
                     //Error

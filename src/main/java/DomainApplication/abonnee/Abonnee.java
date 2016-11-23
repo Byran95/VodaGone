@@ -14,6 +14,12 @@ public class Abonnee implements IAbonnee {
     private String emailadres;
     private int abonneeId;
 
+    public Abonnee(String naam, String achternaam, String emailadres){
+        this.naam=naam;
+        this.achternaam = achternaam;
+        this.emailadres=emailadres;
+    }
+
     public Abonnee(){}
 
     public Abonnee(String naam, String achternaam, String emailadres, int abonneeId){

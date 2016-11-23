@@ -2,6 +2,7 @@ package DomainApplication.abonnement.servlets;
 
 import DomainApplication.IAbonnee;
 import DomainApplication.abonnement.AbonnementService;
+import jersey.AbonnementJerseyService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +18,9 @@ import java.io.IOException;
         urlPatterns = { "/abonnementen" }
 )
 public class AbonnementServlet extends HttpServlet {
-    AbonnementService service = new AbonnementService();
+//    AbonnementService service = new AbonnementService();
+    AbonnementJerseyService jerseyService = new AbonnementJerseyService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IAbonnee loggedInUser = (IAbonnee) req.getSession().getAttribute( "loggedInUser" );
@@ -26,7 +29,7 @@ public class AbonnementServlet extends HttpServlet {
             return;
         }
         System.out.println( loggedInUser );
-        req.setAttribute( "abonnementen" , service.getByAbonnee( loggedInUser.getAbonneeId() ) );
+        req.setAttribute( "abonnementen" , jerseyService.getAbonnementenForUser( loggedInUser.getAbonneeId() ) );
         req.getRequestDispatcher( "/AbonnementView.jsp" ).forward( req , resp );
     }
 
