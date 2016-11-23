@@ -1,5 +1,5 @@
-import DomainApplication.MySQLDataAccess.MySQLDatabaseHelper;
-import DomainApplication.MySQLDataAccess.NoDatabaseConnectionException;
+import Vodagone.DomainApplication.MySQLDataAccess.MySQLDatabaseHelper;
+import Vodagone.DomainApplication.MySQLDataAccess.NoDatabaseConnectionException;
 import TestUtil.MockedResultSet;
 import org.junit.After;
 import org.junit.Before;

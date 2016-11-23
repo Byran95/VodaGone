@@ -1,6 +1,6 @@
-import DomainApplication.Dienst;
-import DomainApplication.IDienst;
-import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
+import Vodagone.DomainApplication.Dienst;
+import Vodagone.DomainApplication.IDienst;
+import Vodagone.DomainApplication.MySQLDataAccess.DienstDAOMySQL;
 import TestUtil.MockedResultSet;
 import org.junit.Before;
 import org.junit.Test;

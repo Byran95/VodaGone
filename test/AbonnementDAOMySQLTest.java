@@ -1,7 +1,5 @@
-import DomainApplication.*;
-import DomainApplication.MySQLDataAccess.AbonneeDAOMySQL;
-import DomainApplication.MySQLDataAccess.AbonnementDAOMySQL;
-import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
+import Vodagone.DomainApplication.*;
+import Vodagone.DomainApplication.MySQLDataAccess.AbonnementDAOMySQL;
 import TestUtil.MockedResultSet;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.sql.*;
-import java.util.Enumeration;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

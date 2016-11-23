@@ -1,6 +1,6 @@
-import DomainApplication.DienstDAOFactory;
-import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
-import DomainApplication.SettingsReader;
+import Vodagone.DomainApplication.DienstDAOFactory;
+import Vodagone.DomainApplication.MySQLDataAccess.DienstDAOMySQL;
+import Vodagone.DomainApplication.SettingsReader;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

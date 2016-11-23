@@ -1,7 +1,6 @@
-import DomainApplication.Abonnee;
-import DomainApplication.IAbonnee;
-import DomainApplication.MySQLDataAccess.AbonneeDAOMySQL;
-import DomainApplication.MySQLDataAccess.DienstDAOMySQL;
+import Vodagone.DomainApplication.Abonnee;
+import Vodagone.DomainApplication.IAbonnee;
+import Vodagone.DomainApplication.MySQLDataAccess.AbonneeDAOMySQL;
 import TestUtil.MockedResultSet;
 import org.junit.Before;
 import org.junit.Test;

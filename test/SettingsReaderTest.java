@@ -1,4 +1,4 @@
-import DomainApplication.SettingsReader;
+import Vodagone.DomainApplication.SettingsReader;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
