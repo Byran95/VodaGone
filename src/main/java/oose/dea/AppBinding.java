@@ -19,6 +19,7 @@ import oose.dea.services.local.LocalItemService;
 public class AppBinding extends ServletModule {
     @Override
     protected void configureServlets() {
+        System.out.println( "AppBinding" );
         super.configureServlets();
         serve("/viewItems").with(ItemsView.class);
         bind(ItemService.class).to(LocalItemService.class);

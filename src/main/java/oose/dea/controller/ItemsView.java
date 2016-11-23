@@ -21,6 +21,7 @@ public class ItemsView extends HttpServlet {
     private ItemService itemService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println( "itemService: " + itemService );
         List<Item> items = itemService.findAll();
         for(Item item:items)
         {
