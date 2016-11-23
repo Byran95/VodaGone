@@ -99,8 +99,8 @@ public class Abonnement implements IAbonnement {
     }
 
     @Override
-    public void setVerdubbeld(String verdubbeld) {
-
+    public void setVerdubbeld(Boolean verdubbeld) {
+        this.verdubbeld = verdubbeld;
     }
 
     @Override

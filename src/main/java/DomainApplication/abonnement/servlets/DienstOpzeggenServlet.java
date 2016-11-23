@@ -3,6 +3,7 @@ package DomainApplication.abonnement.servlets;
 import DomainApplication.IAbonnee;
 import DomainApplication.abonnee.AbonneeService;
 import DomainApplication.abonnement.AbonnementService;
+import jersey.AbonnementJerseyService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +20,7 @@ import java.io.IOException;
 )
 public class DienstOpzeggenServlet extends HttpServlet {
     AbonnementService abonnementService = new AbonnementService();
-    AbonneeService abonneeService = new AbonneeService();
+    AbonnementJerseyService jerseyService = new AbonnementJerseyService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,7 +38,7 @@ public class DienstOpzeggenServlet extends HttpServlet {
             return;
         }
 
-        abonnementService.cancelSubscription(abonneeId, bedrijf, naam);
+        jerseyService.cancelSubscription(abonneeId, bedrijf, naam);
         req.getRequestDispatcher( "/abonnementen" ).forward( req , resp );
     }
 }

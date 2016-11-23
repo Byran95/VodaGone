@@ -38,7 +38,7 @@ public interface IAbonnement {
 
     void setStartDatum(String startDatum);
 
-    void setVerdubbeld(String verdubbeld);
+    void setVerdubbeld(Boolean verdubbeld);
 
     void setGedeeldMet(String gedeeldMet);
 
