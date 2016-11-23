@@ -1,6 +1,7 @@
-package oose.dea.services;
+package oose.dea.services.local;
 
 import oose.dea.domain.*;
+import oose.dea.services.IAbonnementService;
 
 import java.util.List;
 

@@ -1,7 +1,8 @@
-package oose.dea.services;
+package oose.dea.controller;
 
 import com.google.inject.Inject;
 import oose.dea.domain.IAbonnee;
+import oose.dea.services.IAbonnementService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +17,11 @@ import java.io.IOException;
  * Created by Anders Egberts on 14/10/2016.
  */
 @WebServlet(
-        urlPatterns = { "/dienstUitproberen" }
+        urlPatterns = { "/upgradeSubscription" }
 )
-public class DienstServlet extends HttpServlet {
+public class DienstUpgradeServlet extends HttpServlet {
     @Inject
-    IDienstService dienstService;
+    IAbonnementService abonnementService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,12 +30,16 @@ public class DienstServlet extends HttpServlet {
             req.getRequestDispatcher( "/login.jsp" ).forward( req , resp );
             return;
         }
-        String searchTerm = req.getParameter( "searchTerm" );
-        if ( null == searchTerm ) {
-            req.setAttribute("diensten", dienstService.getAll());
-        } else {
-            req.setAttribute("diensten", dienstService.search( searchTerm ));
+        boolean verdubbeld = Boolean.valueOf(req.getParameter("verdubbeld"));
+        int abonneeId = loggedInUser.getAbonneeId();
+        String bedrijf = req.getParameter("bedrijf");
+        String naam = req.getParameter("naam");
+
+        if ( null == bedrijf || null == naam ) {
+            return;
         }
-        req.getRequestDispatcher( "/dienstUitproberenView.jsp" ).forward( req , resp );
+
+        abonnementService.updateVerdubbeld( !verdubbeld , abonneeId, bedrijf, naam);
+        resp.sendRedirect(resp.encodeRedirectURL("/abonnementen"));
     }
 }

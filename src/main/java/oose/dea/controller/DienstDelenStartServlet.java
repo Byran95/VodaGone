@@ -1,8 +1,10 @@
-package oose.dea.services;
+package oose.dea.controller;
 
 import com.google.inject.Inject;
 import oose.dea.domain.IAbonnee;
 import oose.dea.domain.IAbonnement;
+import oose.dea.services.IAbonneeService;
+import oose.dea.services.IAbonnementService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

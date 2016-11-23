@@ -1,8 +1,9 @@
-package oose.dea.services;
+package oose.dea.services.local;
 
 
 import oose.dea.domain.DienstDAOFactory;
 import oose.dea.domain.IDienst;
+import oose.dea.services.IDienstService;
 
 import java.util.List;
 

@@ -1,9 +1,10 @@
-package oose.dea.services;
+package oose.dea.services.local;
 
 
 import oose.dea.domain.AbonneeDAOFactory;
 import oose.dea.domain.IAbonnee;
 import oose.dea.domain.IAbonnement;
+import oose.dea.services.IAbonneeService;
 
 import java.util.ArrayList;
 import java.util.List;
