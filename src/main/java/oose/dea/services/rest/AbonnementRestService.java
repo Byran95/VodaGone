@@ -49,14 +49,18 @@ public class AbonnementRestService implements IAbonnementService {
         dataAccessObject.updateAbonnementStatus(AbonnementStatus.OPGEZEGD, abonnement);
     }
 
-    @Override
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getAll")
     public List<IAbonnement> getAll() {
-        return null;
+        return dataAccessObject.getAllAbonnementen();
     }
 
-    @Override
-    public List<IAbonnement> getByAbonnee(int abonneeId) {
-        return null;
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getFor/{id}")
+    public List<IAbonnement> getByAbonnee(@PathParam("id")int abonneeId) {
+        return getAbonnementenForUser( abonneeId );
     }
 
     @POST

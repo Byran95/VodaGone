@@ -8,6 +8,7 @@ import oose.dea.services.IAbonneeService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,14 +34,23 @@ public class AbonneeRestService implements IAbonneeService {
         return dataAccessObject.findAbonneeById(abonneeId);
     }
 
-    @Override
-    public List<IAbonnee> getAbonneesThatAreSharing(IAbonnement sharedAbonnement) {
-        return null;
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("sharing/{id}")
+    public List<IAbonnee> getAbonneesThatAreSharing( IAbonnement sharedAbonnement) {
+        return dataAccessObject.getAbonneesThatAreSharingAbonnement( sharedAbonnement );
     }
 
     @Override
     public List<IAbonnee> getAllWithFilter(List<IAbonnee> filterAbonnees) {
-        return null;
+        List<IAbonnee> abonnees = dataAccessObject.getAllAbonnees();
+        List<IAbonnee> filteredList = new ArrayList<>();
+        for( IAbonnee abonnee : abonnees ) {
+            if ( !isInFilterList( abonnee , filterAbonnees ) ) {
+                filteredList.add( abonnee );
+            }
+        }
+        return filteredList;
     }
 
     @GET
@@ -57,5 +67,14 @@ public class AbonneeRestService implements IAbonneeService {
     public void createAbonnee(IAbonnee abonnee) {
         System.out.println("jersey.Abonnee saved : " + abonnee.getEmailadres());
         dataAccessObject.createAbonnee(abonnee.getNaam(), abonnee.getAchternaam(), abonnee.getEmailadres());
+    }
+
+    private boolean isInFilterList( IAbonnee checkFor , List<IAbonnee> filterList ) {
+        for( IAbonnee skipAbonee : filterList ) {
+            if ( checkFor.getAbonneeId() == skipAbonee.getAbonneeId() ) {
+                return true;
+            }
+        }
+        return false;
     }
 }

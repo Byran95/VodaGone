@@ -18,6 +18,9 @@ import oose.dea.services.local.AbonneeService;
 import oose.dea.services.local.AbonnementService;
 import oose.dea.services.local.DienstService;
 import oose.dea.services.local.LocalItemService;
+import oose.dea.services.rest.AbonneeRestService;
+import oose.dea.services.rest.AbonnementRestService;
+import oose.dea.services.rest.DienstRestService;
 
 /**
  * Created by Anders Egberts on 22/11/2016.
@@ -41,9 +44,16 @@ public class AppBinding extends ServletModule {
         bind(ItemService.class).to(LocalItemService.class);
         bind(ItemDAO.class).to(FakeItemDAO.class);
         //Bind services
-        bind(IAbonnementService.class).to(AbonnementService.class);
-        bind(IAbonneeService.class).to(AbonneeService.class);
-        bind(IDienstService.class).to(DienstService.class);
+        boolean useRest = true;
+        if ( useRest ) {
+            bind(IAbonnementService.class).to(AbonnementRestService.class);
+            bind(IAbonneeService.class).to(AbonneeRestService.class);
+            bind(IDienstService.class).to(DienstRestService.class);
+        } else {
+            bind(IAbonnementService.class).to(AbonnementService.class);
+            bind(IAbonneeService.class).to(AbonneeService.class);
+            bind(IDienstService.class).to(DienstService.class);
+        }
         //Bind DAOs
         bind(IAbonneeAccess.class).to(AbonneeDAOMySQL.class);
         bind(IAbonnementAccess.class).to(AbonnementDAOMySQL.class);
