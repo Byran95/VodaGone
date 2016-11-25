@@ -17,5 +17,6 @@ public interface IAbonneeService {
 
     List<IAbonnee> getAllWithFilter( List<IAbonnee> filterAbonnees );
 
-    void createAbonnee( String naam , String achternaam , String email );
+    //void createAbonnee( String naam , String achternaam , String email );
+    void createAbonnee( IAbonnee newAbonnee );
 }

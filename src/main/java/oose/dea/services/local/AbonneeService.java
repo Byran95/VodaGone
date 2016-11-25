@@ -53,6 +53,11 @@ public class AbonneeService implements IAbonneeService {
         return filteredList;
     }
 
+    @Override
+    public void createAbonnee(IAbonnee newAbonnee) {
+        dataAccessObject.createAbonnee( newAbonnee.getNaam() , newAbonnee.getAchternaam() , newAbonnee.getEmailadres() );
+    }
+
     private boolean isInFilterList( IAbonnee checkFor , List<IAbonnee> filterList ) {
         for( IAbonnee skipAbonee : filterList ) {
             if ( checkFor.getAbonneeId() == skipAbonee.getAbonneeId() ) {
@@ -60,10 +65,5 @@ public class AbonneeService implements IAbonneeService {
             }
         }
         return false;
-    }
-
-    @Override
-    public void createAbonnee( String naam , String achternaam , String email ) {
-        dataAccessObject.createAbonnee( naam , achternaam , email );
     }
 }

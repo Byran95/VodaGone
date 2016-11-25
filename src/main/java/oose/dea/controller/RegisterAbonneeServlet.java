@@ -1,6 +1,8 @@
 package oose.dea.controller;
 
 import com.google.inject.Inject;
+import oose.dea.domain.Abonnee;
+import oose.dea.domain.IAbonnee;
 import oose.dea.services.IAbonneeService;
 
 import javax.inject.Singleton;
@@ -54,7 +56,8 @@ public class RegisterAbonneeServlet extends HttpServlet {
                 req.getRequestDispatcher("/createAccount.jsp").forward(req, resp);
             } else if ( null != userEmail && null != lastNameName && null != firstName ) {
                 //Succes
-                abonneeService.createAbonnee( firstName , lastNameName , userEmail );
+                IAbonnee abonnee = new Abonnee( firstName , lastNameName , userEmail );
+                abonneeService.createAbonnee( abonnee );
                 req.getRequestDispatcher("/login.jsp").forward(req, resp);
             }
         } else {

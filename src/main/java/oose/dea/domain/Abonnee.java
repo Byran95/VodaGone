@@ -21,6 +21,12 @@ public class Abonnee implements IAbonnee {
         this.abonneeId=abonneeId;
     }
 
+    public Abonnee(String naam, String achternaam, String emailadres){
+        this.naam=naam;
+        this.achternaam = achternaam;
+        this.emailadres=emailadres;
+    }
+
     @Override
     public String getAchternaam() {
         return achternaam;
