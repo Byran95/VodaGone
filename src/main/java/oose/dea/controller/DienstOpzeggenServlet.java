@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import oose.dea.domain.IAbonnee;
 import oose.dea.services.IAbonnementService;
 
+import javax.inject.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +17,7 @@ import java.io.IOException;
  *
  * Created by Anders Egberts on 14/10/2016.
  */
-@WebServlet(
-        urlPatterns = { "/cancelSubscription" }
-)
+@Singleton
 public class DienstOpzeggenServlet extends HttpServlet {
     @Inject
     private IAbonnementService abonnementService;

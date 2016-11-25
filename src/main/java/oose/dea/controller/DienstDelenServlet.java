@@ -7,6 +7,7 @@ import oose.dea.services.IAbonneeService;
 import oose.dea.services.IAbonnementService;
 import oose.dea.services.IDienstService;
 
+import javax.inject.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,9 +19,7 @@ import java.io.IOException;
  * Deze Servlet bevat geen markup-code (Eis: M2)
  * Created by Anders Egberts on 20/10/2016.
  */
-@WebServlet(
-    value = "/shareService"
-)
+@Singleton
 public class DienstDelenServlet extends HttpServlet {
     @Inject
     private IDienstService dienstService;

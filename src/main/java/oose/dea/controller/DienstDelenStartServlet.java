@@ -6,6 +6,7 @@ import oose.dea.domain.IAbonnement;
 import oose.dea.services.IAbonneeService;
 import oose.dea.services.IAbonnementService;
 
+import javax.inject.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,9 +21,7 @@ import java.util.List;
  * Haalt de users op waarmee de dienst gedeeld kan worden.
  * Created by Anders Egberts on 20/10/2016.
  */
-@WebServlet(
-        value = "/startSharingService"
-)
+@Singleton
 public class DienstDelenStartServlet extends HttpServlet {
     @Inject
     private IAbonnementService abonnementService;

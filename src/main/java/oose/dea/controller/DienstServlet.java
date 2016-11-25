@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import oose.dea.domain.IAbonnee;
 import oose.dea.services.IDienstService;
 
+import javax.inject.Singleton;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +17,7 @@ import java.io.IOException;
  *
  * Created by Anders Egberts on 14/10/2016.
  */
-@WebServlet(
-        urlPatterns = { "/dienstUitproberen" }
-)
+@Singleton
 public class DienstServlet extends HttpServlet {
     @Inject
     IDienstService dienstService;

@@ -5,6 +5,7 @@ import oose.dea.domain.*;
 import oose.dea.services.IAbonnementService;
 import oose.dea.services.IDienstService;
 
+import javax.inject.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,9 +18,7 @@ import java.io.IOException;
  *
  * Created by Anders Egberts on 20/10/2016.
  */
-@WebServlet(
-    value = "/tryService"
-)
+@Singleton
 public class ProbeerDienstServlet extends HttpServlet {
     @Inject
     private IAbonnementService abonnementService;

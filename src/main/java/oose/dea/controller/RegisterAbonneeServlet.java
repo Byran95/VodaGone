@@ -3,6 +3,7 @@ package oose.dea.controller;
 import com.google.inject.Inject;
 import oose.dea.services.IAbonneeService;
 
+import javax.inject.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +16,7 @@ import java.io.IOException;
  *
  * Created by Anders Egberts on 20/10/2016.
  */
-@WebServlet(
-        urlPatterns = { "/register" }
-)
+@Singleton
 public class RegisterAbonneeServlet extends HttpServlet {
     @Inject
     private IAbonneeService abonneeService;

@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import oose.dea.domain.IAbonnee;
 import oose.dea.services.IAbonnementService;
 
+import javax.inject.Singleton;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +16,10 @@ import java.io.IOException;
  * Deze Servlet bevat geen markup-code (Eis: M2)
  * Created by Anders Egberts on 14/10/2016.
  */
-@WebServlet(
-        urlPatterns = { "/abonnementen" }
-)
+@Singleton
+//@WebServlet(
+//        urlPatterns = { "/abonnementen" }
+//)
 public class AbonnementServlet extends HttpServlet {
 
     @Inject
