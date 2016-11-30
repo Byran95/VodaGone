@@ -1,4 +1,4 @@
-package oose.dea.controller;
+package oose.dea.servlets;
 
 import javax.servlet.*;
 import java.io.IOException;

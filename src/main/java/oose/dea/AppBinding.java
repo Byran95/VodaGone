@@ -1,7 +1,7 @@
 package oose.dea;
 
 import com.google.inject.servlet.ServletModule;
-import oose.dea.controller.*;
+import oose.dea.servlets.*;
 import oose.dea.domain.IAbonneeAccess;
 import oose.dea.domain.IAbonnementAccess;
 import oose.dea.domain.IDienstAccess;
