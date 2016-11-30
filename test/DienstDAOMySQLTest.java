@@ -1,8 +1,8 @@
 
 import TestUtil.MockedResultSet;
-import oose.dea.domain.Dienst;
-import oose.dea.domain.IDienst;
-import oose.dea.domain.MySQLDataAccess.DienstDAOMySQL;
+import oose.dea.dienst.Dienst;
+import oose.dea.dienst.IDienst;
+import oose.dea.dienst.DienstDAOMySQL;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

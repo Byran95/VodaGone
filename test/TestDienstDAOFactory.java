@@ -1,6 +1,6 @@
 
-import oose.dea.domain.DienstDAOFactory;
-import oose.dea.domain.MySQLDataAccess.DienstDAOMySQL;
+import oose.dea.dienst.DienstDAOFactory;
+import oose.dea.dienst.DienstDAOMySQL;
 import oose.dea.domain.SettingsReader;
 import org.junit.Test;
 

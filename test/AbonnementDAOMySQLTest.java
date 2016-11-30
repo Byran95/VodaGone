@@ -1,7 +1,10 @@
 
 import TestUtil.MockedResultSet;
-import oose.dea.domain.*;
-import oose.dea.domain.MySQLDataAccess.AbonnementDAOMySQL;
+import oose.dea.abonnee.Abonnee;
+import oose.dea.abonnee.IAbonnee;
+import oose.dea.abonnement.*;
+import oose.dea.dienst.Dienst;
+import oose.dea.dienst.IDienst;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

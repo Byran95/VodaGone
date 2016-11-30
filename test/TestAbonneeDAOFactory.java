@@ -1,6 +1,6 @@
 
-import oose.dea.domain.AbonneeDAOFactory;
-import oose.dea.domain.MySQLDataAccess.AbonneeDAOMySQL;
+import oose.dea.abonnee.AbonneeDAOFactory;
+import oose.dea.abonnee.AbonneeDAOMySQL;
 import oose.dea.domain.SettingsReader;
 import org.junit.Test;
 

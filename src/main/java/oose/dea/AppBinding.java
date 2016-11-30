@@ -1,22 +1,9 @@
 package oose.dea;
 
 import com.google.inject.servlet.ServletModule;
-import oose.dea.servlets.*;
-import oose.dea.domain.IAbonneeAccess;
-import oose.dea.domain.IAbonnementAccess;
-import oose.dea.domain.IDienstAccess;
-import oose.dea.domain.MySQLDataAccess.AbonneeDAOMySQL;
-import oose.dea.domain.MySQLDataAccess.AbonnementDAOMySQL;
-import oose.dea.domain.MySQLDataAccess.DienstDAOMySQL;
-import oose.dea.services.IAbonneeService;
-import oose.dea.services.IAbonnementService;
-import oose.dea.services.IDienstService;
-import oose.dea.services.local.AbonneeService;
-import oose.dea.services.local.AbonnementService;
-import oose.dea.services.local.DienstService;
-import oose.dea.services.rest.AbonneeRestService;
-import oose.dea.services.rest.AbonnementRestService;
-import oose.dea.services.rest.DienstRestService;
+import oose.dea.abonnee.*;
+import oose.dea.abonnement.*;
+import oose.dea.dienst.*;
 
 /**
  * Created by Anders Egberts on 22/11/2016.
